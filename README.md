@@ -20,7 +20,7 @@ Add both to PATH environment variables
 9.	Click OK
 10.	Repeat with: `C:\Program Files\ffmpeg\bin`
 
-To use:
+# To use:
 1.	Copy Youtube URL
 2.	Press at the same time: `Ctrl+Shift+C`
 
