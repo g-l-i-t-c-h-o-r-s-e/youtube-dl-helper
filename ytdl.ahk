@@ -45,6 +45,7 @@ if InStr(leClip, "&list=") {
 Dir := A_WorkingDir . "/"
 Code := "youtube-dl.exe -o " . DestinationVar . "/%(title)s-%(id)s.%(ext)s --restrict-filenames -f bestvideo+bestaudio/best " . leClip
 
+;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
 If !RegExMatch(CheckPathEnvVar,"youtube") {
 ;msgbox, shiet
