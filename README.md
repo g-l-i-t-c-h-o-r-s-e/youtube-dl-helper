@@ -22,7 +22,7 @@ Add both to PATH environment variables
 
 To use:
 1.	Copy Youtube URL
-2.	Press at the same time: `Ctrl+Shift+Y`
+2.	Press at the same time: `Ctrl+Shift+C`
 
 # Features:
 • Easy to use<br/>
