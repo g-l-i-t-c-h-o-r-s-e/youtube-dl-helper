@@ -39,7 +39,7 @@ if InStr(leClip, "&list=") {
 	
 	IfMsgBox, Yes
 	;if you select Yes then it cuts the playlist out of the url.
-	playlist := " --no-playlist "
+	playlist := "--no-playlist "
 }
 
 Dir := A_WorkingDir . "/"
