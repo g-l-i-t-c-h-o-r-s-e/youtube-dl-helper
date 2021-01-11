@@ -6,23 +6,23 @@ Download full ffmpeg (from before they cut codec support) from https://web.archi
 
 
 Add both to PATH environment variables
-1.	Create folder C:\Program Files\youtube-dl
-	*	Place youtube-dl.exe in it
+1.	Create folder: 	`C:\Program Files\youtube-dl`
+	*	Place `youtube-dl.exe` in it
 2.	Extract ffmpeg
 	1.	Rename folder to ffmpeg
-	2.	Place ffmpeg folder in C:\Program Files
+	2.	Place ffmpeg folder in: `C:\Program Files`
 3.	click Start menu
 4.	Search for "edit the system environment variables"
 5.	Click "Environment Variables"
 6.	Select Path on the top and click Edit
 7.	Click New
-8.	Paste in "C:\Program Files\youtube-dl"
+8.	Paste in: `C:\Program Files\youtube-dl`
 9.	Click OK
-10.	Repeat with "C:\Program Files\ffmpeg\bin"
+10.	Repeat with: `C:\Program Files\ffmpeg\bin`
 
 To use:
 1.	Copy Youtube URL
-2.	Press at the same time: Ctrl+Shift+Y
+2.	Press at the same time: `Ctrl+Shift+Y`
 
 # Features:
 • Easy to use<br/>
