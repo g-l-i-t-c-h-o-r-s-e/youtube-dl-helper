@@ -1,8 +1,8 @@
 # youtube-dl-helper
 An AutoHotKey Script Made To Download Youtube Videos and Music <3<br>
 Download AutoHotKey from: https://www.autohotkey.com/<br>
-Download youtube-dl.exe from https://yt-dl.org/<br>
-Download full ffmpeg (from before they cut codec support) from https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip<br><br>
+Download youtube-dl.exe from https://github.com/ytdl-org/youtube-dl/releases<br>
+Download full ffmpeg (from before they cut some codec support) from https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip<br><br>
 
 
 Add both to PATH environment variables
