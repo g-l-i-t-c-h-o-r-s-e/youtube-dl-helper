@@ -18,7 +18,7 @@ else
 
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %A_WorkingDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
-Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, download entire playlist?
+Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
 Gui, Add, Checkbox, x281 y46 w140 h20 +Right vForceMP4, Force MP4 Download?
 Gui, Show, xCenter yCenter h66 w425, Destination
 sleep, 20
@@ -85,7 +85,7 @@ else
      playlist := ""
      DisableForceMP4 := 0
 Return
-
+;Pandela And Siabus Were Here ;3 /)
 
 
 ChangeButtonNames: 
@@ -107,5 +107,5 @@ ControlSetText, Button1, %buttonName%
 ControlSetText, Button2, %buttonName2%
 WinSet, AlwaysOnTop
 sleep, 50
-Send, {Tab} ;Select Video button by default.
+Send, {Tab}
 return
