@@ -1,8 +1,8 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-
+;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+DownloadDir := "`%USERPROFILE`%\"
 
 ^+c::
 leClip := clipboard
@@ -15,7 +15,7 @@ if !InStr(leClip, "youtu") {
 else
 
 
-Gui, Add, Edit, xCenter yCenter w420 h20 +Center vDestinationVar, %A_ScriptDir%
+Gui, Add, Edit, xCenter yCenter w420 h20 +Center vDestinationVar, ~\
 Gui, Add, Button, xCenter y20 w420 h15 +Center vDoEt gDoItNao
 Gui, Show, xCenter yCenter h40 w420, Destination
 sleep, 20
@@ -43,8 +43,20 @@ if InStr(leClip, "&list=") {
 	playlist = --no-playlist 
 }
 
+
+MsgBox, 4, , Only download audio?
+IfMsgBox, Yes
+{ 
+	audio := "--extract-audio --audio-format m4a"
+}
+
+IfMsgBox, No
+{
+	audio := ""
+}
+
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe %playlist% --output  %DestinationVar%\1`%(title)s.`%(ext)s --restrict-filenames --format bestvideo+bestaudio/best  %leClip%
+Code = youtube-dl.exe %playlist% --output  %DestinationVar%\1`%(title)s.`%(ext)s --restrict-filenames --format bestvideo+bestaudio/best %audio% %leClip%
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
