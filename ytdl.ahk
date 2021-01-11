@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
-^+y::
+^+c::
 leClip := clipboard
 sleep, 200
 
@@ -35,22 +35,23 @@ if InStr(leClip, "&list=") {
 		
 	{
 	;if you select No it will download the entire playlist.
+	playlist := ""
 	}
 	
 	IfMsgBox, Yes
-	;if you select Yes then it cuts the playlist out of the url.
-	playlist := "--no-playlist "
+	;if you select Yes then it passes instruction to not download playlist
+	playlist = --no-playlist 
 }
 
-Dir := A_WorkingDir . "/"
-Code := "youtube-dl.exe --output " . DestinationVar . "/%(title)s.%(ext)s --restrict-filenames --format bestvideo+bestaudio/best %playlist%" . leClip
+Dir := A_WorkingDir . "\"
+Code = youtube-dl.exe %playlist% --output  %DestinationVar%\1`%(title)s.`%(ext)s --restrict-filenames --format bestvideo+bestaudio/best  %leClip%
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
-If !RegExMatch(CheckPathEnvVar,"youtube") {
+If !RegExMatch(CheckPathEnvVar,"youtube-dl") {
 ;msgbox, shiet
-Run,  %Dir%\%code% ;had to use backslash?
+Run,  %code% ;had to use backslash?
 	Return
 }
 else
