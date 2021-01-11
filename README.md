@@ -34,4 +34,4 @@ To use:
 # Tips:
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
 • When the Destination window pops up, just press `Enter` if you want the video to download in the same folder as the script.<br/>
-• You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Twice, Then `Enter` once more for a faster playlist download workflow.<br/>
+• You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Three times, Then `Enter` once more for a faster playlist download workflow.<br/>
