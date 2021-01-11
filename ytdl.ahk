@@ -39,11 +39,11 @@ if InStr(leClip, "&list=") {
 	
 	IfMsgBox, Yes
 	;if you select Yes then it cuts the playlist out of the url.
-	leClip := SubStr(leClip, 1, InStr(leClip, "&") - 1) 
+	playlist := " --no-playlist "
 }
 
 Dir := A_WorkingDir . "/"
-Code := "youtube-dl.exe -o " . DestinationVar . "/%(title)s-%(id)s.%(ext)s --restrict-filenames -f bestvideo+bestaudio/best " . leClip
+Code := "youtube-dl.exe --output" . DestinationVar . "/%(title)s.%(ext)s --restrict-filenames --format bestvideo+bestaudio/best %playlist%" . leClip
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
