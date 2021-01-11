@@ -47,16 +47,16 @@ if InStr(leClip, "&list=") {
 MsgBox, 4, , Only download audio?
 IfMsgBox, Yes
 { 
-	audio := "--extract-audio --audio-format m4a"
+	format := "--extract-audio --audio-format m4a --format bestaudio[ext=m4a]"
 }
 
 IfMsgBox, No
 {
-	audio := ""
+	format := "--format bestvideo+bestaudio/best"
 }
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe %playlist% --output  %DestinationVar%\1`%(title)s.`%(ext)s --restrict-filenames --format bestvideo+bestaudio/best %audio% %leClip%
+Code = youtube-dl.exe %playlist% --output  %DestinationVar%\1`%(title)s.`%(ext)s --restrict-filenames  %format% %leClip%
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
