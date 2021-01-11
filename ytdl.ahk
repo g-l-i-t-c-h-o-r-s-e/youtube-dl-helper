@@ -43,7 +43,8 @@ if InStr(leClip, "&list=") {
 }
 
 Dir := A_WorkingDir . "/"
-Code := "youtube-dl.exe --output" . DestinationVar . "/%(title)s.%(ext)s --restrict-filenames --format bestvideo+bestaudio/best %playlist%" . leClip
+Code := "youtube-dl.exe --output " . DestinationVar . "/%(title)s.%(ext)s --restrict-filenames --format bestvideo+bestaudio/best %playlist%" . leClip
+
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
@@ -54,4 +55,5 @@ Run,  %Dir%\%code% ;had to use backslash?
 }
 else
      Run, %code%
+playlist := ""
 Return
