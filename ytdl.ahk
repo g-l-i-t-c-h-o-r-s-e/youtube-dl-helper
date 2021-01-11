@@ -56,7 +56,7 @@ IfMsgBox, No
 }
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe %playlist% --output  %DestinationVar%\1`%(title)s.`%(ext)s --restrict-filenames  %format% %leClip%
+Code = youtube-dl.exe %playlist% --output  %DestinationVar%\`%(title)s.`%(ext)s --restrict-filenames  %format% %leClip%
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
