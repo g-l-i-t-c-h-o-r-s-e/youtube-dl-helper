@@ -23,3 +23,10 @@ Add both to PATH environment variables
 To use:
 1.	Copy Youtube URL
 2.	Press at the same time: Ctrl+Shift+Y
+
+# Features:
+• Easy to use<br/>
+• Ignores url's that aren't YouTube<br/>
+• Optional Playlist download checkbox<br/>
+• Has Option to Extract Audio or Force MP4 output<br/>
+• Prompts for output directory; otherwise you can quickly press Enter key to use default<br/>
