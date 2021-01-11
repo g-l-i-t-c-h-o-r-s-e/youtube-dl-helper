@@ -2,7 +2,7 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 ;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-DownloadDir := "`%USERPROFILE`%\"
+DownloadDir := "`%USERPROFILE`%\Downloads"
 
 ^+c::
 leClip := clipboard
@@ -15,7 +15,7 @@ if !InStr(leClip, "youtu") {
 else
 
 
-Gui, Add, Edit, xCenter yCenter w420 h20 +Center vDestinationVar, ~\
+Gui, Add, Edit, xCenter yCenter w420 h20 +Center vDestinationVar, ~\Downloads
 Gui, Add, Button, xCenter y20 w420 h15 +Center vDoEt gDoItNao
 Gui, Show, xCenter yCenter h40 w420, Destination
 sleep, 20
