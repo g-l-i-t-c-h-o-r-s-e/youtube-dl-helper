@@ -24,6 +24,7 @@ Download full ffmpeg (from before they cut some codec support) from https://web.
 
 
 # Tips:
+• Its suggested to move this script into the `Videos\youtube` folder after first installation for the full experience.<br/>
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
 • When the Destination window pops up, just press `Enter` if you want the video to download in the same folder as the script.<br/>
 • You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Three times, Then `Enter` once more for a faster playlist download workflow.<br/>
