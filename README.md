@@ -26,7 +26,7 @@ Add both to PATH environment variables
 
 # Features:
 • Easy to use<br/>
-• Ignores url's that aren't YouTube<br/>
+• ~~Ignores url's that aren't YouTube~~ Adding Bigger Blacklist Soon<br/>
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
 • Automatically downloads Video and Audio at highest quality<br>
