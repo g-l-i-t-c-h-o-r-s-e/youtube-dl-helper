@@ -4,21 +4,9 @@ Download AutoHotKey from: https://www.autohotkey.com/<br>
 Download youtube-dl.exe from https://github.com/ytdl-org/youtube-dl/releases<br>
 Download full ffmpeg (from before they cut some codec support) from https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip<br><br>
 
-
-Add both to PATH environment variables
-1.	Create folder: 	`C:\Program Files\youtube-dl`
-	*	Place `youtube-dl.exe` in it
-2.	Extract ffmpeg
-	1.	Rename folder to ffmpeg
-	2.	Place ffmpeg folder in: `C:\Program Files`
-3.	click Start menu
-4.	Search for "edit the system environment variables"
-5.	Click "Environment Variables"
-6.	Select Path on the top and click Edit
-7.	Click New
-8.	Paste in: `C:\Program Files\youtube-dl`
-9.	Click OK
-10.	Repeat with: `C:\Program Files\ffmpeg\bin`
+1. After Downloading `youtube-dl.exe` & `ffmpeg.exe` **and placing them in the root script folder**; run the script for the first time.
+2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Variable.
+3. Profit.
 
 # To use:
 1.	Copy Youtube URL
@@ -26,12 +14,14 @@ Add both to PATH environment variables
 
 # Features:
 • Easy to use<br/>
-• Ignores url's that aren't YouTube<br/>
+• ~~Ignores url's that aren't YouTube~~ Adding Bigger Whitelist Soon<br/>
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
 • Automatically downloads Video and Audio at highest quality<br>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default (the same folder script is in)<br/>
+• Optionally add the `youtube` folder to the `PATH` environment variable and make a `youtube` folder in your Videos folder for the binary to reside<br/>
+
 
 # Tips:
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
