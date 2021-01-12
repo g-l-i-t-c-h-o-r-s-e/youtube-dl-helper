@@ -11,18 +11,10 @@ sleep, 10
 
 ;obsolete
 ;if youtube is not in clipboard, ignore.
-<<<<<<< HEAD
-if !InStr(leClip, "youtu") {
-	return
-}
-else
-=======
 ;if !InStr(leClip, "youtu") {
 ;	return
 ;}
 ;else
->>>>>>> development_sia
-	
 
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %A_WorkingDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
@@ -81,12 +73,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-<<<<<<< HEAD
-Code := "youtube-dl.exe " . playlist . " --output " . DestinationVar . "\%(title)s.%(ext)s --restrict-filenames " . format . " " . chr(0x22) . leClip . chr(0x22)
-=======
 Code = youtube-dl.exe  %playlist% --output %DestinationDir%\`%(title)s.`%(ext)s --restrict-filenames %format%  "%leClip%" ;quit destroying mah strink bab >:c
->>>>>>> development_sia
-
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
@@ -122,10 +109,6 @@ WinActivate
 ControlSetText, Button1, %buttonName%
 ControlSetText, Button2, %buttonName2%
 WinSet, AlwaysOnTop
-<<<<<<< HEAD
-sleep, 50
-=======
 sleep, 5
->>>>>>> development_sia
 Send, {Tab}
 return
