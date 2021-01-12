@@ -34,7 +34,7 @@ if !FileExist(backup) {
 	
 	Run, powershell -command "wget %youtubedldownload% -OutFile %A_ScriptDir%\youtube-dl.exe"
 	Run, powershell -command "wget %ffmpegdownload% -OutFile %A_ScriptDir%\ffmpeg.zip"
-	Run, powershell -command "[System.IO.Compression.ZipFile]::ExtractToDirectory(%A_ScriptDir%\ffmpeg.zip, %A_ScriptDir%\ffmpeg)"
+	Run, powershell -command "Expand-Archive -LiteralPath %A_ScriptDir%\ffmpeg.zip -DestinationPath %A_ScriptDir%\ffmpeg"
 
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
