@@ -35,7 +35,7 @@ if !FileExist(backup) {
 	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe; wget %ffmpegdownload% -OutFile ffmpeg.zip; Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
-
+;meme
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
@@ -136,7 +136,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe  %playlist% --output %DestinationDir%\`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
+Code = youtube-dl.exe  %playlist% --output %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
