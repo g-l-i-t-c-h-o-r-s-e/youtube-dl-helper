@@ -18,7 +18,7 @@ DisableForceMP4 := 0
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
 ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
 
-DownloadDir := UserPath . "\Downloads" ;testin shtuff
+;DownloadDir := UserPath . "\Downloads" ;testin shtuff
 ;msgbox, %DownloadDir%
 
 ;if Environment Variables are not backed up; do it once.
@@ -34,6 +34,7 @@ if !FileExist(backup) {
 	
 	Run, poweshell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
 	Run, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
+	Run, powershell -command "[System.IO.Compression.ZipFile]::ExtractToDirectory(ffmpeg.zip, ffmpeg)"
 
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
