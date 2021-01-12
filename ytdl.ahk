@@ -32,15 +32,6 @@ if !FileExist(backup) {
 	Env_UserBackup()
 	Env_SystemBackup()
 	
-<<<<<<< HEAD
-	Run, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe; wget %ffmpegdownload% -OutFile ffmpeg.zip; Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
-	;Run, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
-	;Run, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
-
-	;MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
-	;IfMsgBox, Yes
-	;{ 
-=======
 	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
@@ -48,7 +39,6 @@ if !FileExist(backup) {
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
->>>>>>> development_glitchorse
 		if !InStr(FileExist(ytdlPath), "D") 
 		{
 			FileCreateDir, %ytdlPath% ;create youtube directory in Videos folder
