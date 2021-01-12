@@ -9,11 +9,19 @@ DisableForceMP4 := 0
 leClip := clipboard
 sleep, 10
 
+;obsolete
 ;if youtube is not in clipboard, ignore.
+<<<<<<< HEAD
 if !InStr(leClip, "youtu") {
 	return
 }
 else
+=======
+;if !InStr(leClip, "youtu") {
+;	return
+;}
+;else
+>>>>>>> development_sia
 	
 
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %A_WorkingDir%
