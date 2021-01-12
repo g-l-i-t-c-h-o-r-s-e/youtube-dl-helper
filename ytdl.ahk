@@ -73,13 +73,13 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code := " youtube-dl.exe " . playlist . " --output " . DestinationVar . "\%(title)s.%(ext)s --restrict-filenames " . format . " " . chr(0x22) . leClip . chr(0x22)
+Code := "youtube-dl.exe " . playlist . " --output " . DestinationVar . "\%(title)s.%(ext)s --restrict-filenames " . format . " " . chr(0x22) . leClip . chr(0x22)
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
 If !RegExMatch(CheckPathEnvVar,"youtube") {
-	Run, %code% ;had to use backslash?
+	Run, %Dir%%code%
 	playlist := ""
 	DisableForceMP4 := 0
 	Return
