@@ -4,20 +4,15 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ./Environment/Environment.ahk
+DisableForceMP4 := 0
 
-;Default Variables Do Not Touch >:c
 backup := "*.reg"
 EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath := UserPath . "\Videos\youtube"
 ytbinary := "youtube-dl.exe"
 ffbinary := "ffmpeg.exe"
-ffBin := A_WorkingDir . "ffmpeg\bin\"
-DisableForceMP4 := 0
-
-youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
-ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
-
+ffBin := A_WorkingDir . "\bin\"
 ;DownloadDir := UserPath . "\Downloads" ;testin shtuff
 ;msgbox, %DownloadDir%
 
@@ -32,10 +27,6 @@ if !FileExist(backup) {
 	Env_UserBackup()
 	Env_SystemBackup()
 	
-	Run, powershell -command "wget %youtubedldownload% -OutFile %A_ScriptDir%\youtube-dl.exe"
-	Run, powershell -command "wget %ffmpegdownload% -OutFile %A_ScriptDir%\ffmpeg.zip"
-	Run, powershell -command "Expand-Archive -LiteralPath %A_ScriptDir%\ffmpeg.zip -DestinationPath %A_ScriptDir%\ffmpeg"
-
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
@@ -93,7 +84,6 @@ Gui, Submit, NoHide
 Gui, Destroy
 
 ;if custom destination does not exist; create the folder.
-;Pandela And Siabus Were Here ;3 /)
 IfNotExist, DestinationVar
 	FileCreateDir, %DestinationVar%\
 
@@ -124,6 +114,7 @@ IfMsgBox, No
 
 ;check if Force MP4 is disabled (Default).
 if (ForceMP4 = 0) {
+;Pandela And Siabus Were Here ;3 /)
 ;do nothing LOL
 }
 
@@ -136,7 +127,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe  %playlist% --output %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
+Code = youtube-dl.exe  %playlist% --output %DestinationDir%\`%(title)s.`%(ext)s --restrict-filenames %format%  "%leClip%" ;quit destroying mah strink bab >:c
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
