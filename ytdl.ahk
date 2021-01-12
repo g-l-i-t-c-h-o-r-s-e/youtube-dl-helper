@@ -1,33 +1,57 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+#SingleInstance,Force ;Self Explenatory
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ./Environment/Environment.ahk
-DisableForceMP4 := 0
 
+;Default Variables Do Not Touch >:c
 backup := "*.reg"
 EnvGet, UserPath, USERPROFILE
+ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath := UserPath . "\Videos\youtube"
-binary := "youtube-dl.exe"
+ytbinary := "youtube-dl.exe"
+ffbinary := "ffmpeg.exe"
+ffBin := A_WorkingDir . "\bin\"
+DisableForceMP4 := 0
 ;DownloadDir := UserPath . "\Downloads" ;testin shtuff
 ;msgbox, %DownloadDir%
 
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
+	msgbox, We need to Run the Script as Admin
+	If (!A_IsAdmin){ ;we need the script to run as admin to make changes in Program Files!
+		Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
+	}
+	
 	msgbox, Backing Up Environment Variables...`nCheck Script Folder For .reg Files
 	Env_UserBackup()
 	Env_SystemBackup()
 	
-	MsgBox,4,oWo,Add YouTube folder to path?
+	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
-		IfNotExist, ytdlPath
-			FileCreateDir, %ytdlPath%\ ;create youtube directory in Videos folder
-		Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
-		if FileExist(binary) {
-			FileMove, %binary%, %ytdlPath%
+		if !InStr(FileExist(ytdlPath), "D") 
+		{
+			FileCreateDir, %ytdlPath% ;create youtube directory in Videos folder
+			Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
 		}
-	}
+		
+				
+		sleep, 20
+		if !InStr(FileExist(ytbinary), "D") {
+			FileMove, %ytbinary%, %ytdlPath%
+			if !InStr(FileExist(ffmPath), "D") {
+				msgbox, ffmpeg path does not exist, creating
+				sleep, 100
+				FileCreateDir, %ffmPath% ;create ffmpeg directory in programfiles
+				sleep, 200
+				FileMove, %ffBin%*.exe, %ffmPath%
+				FileRemoveDir, %ffBin%
+				Env_UserAdd("PATH", ffmPath)   ;adds the "youtube" folder to the path; also once.
+			}
+		}
+	}	
 	
 	IfMsgBox, No
 	{
@@ -61,6 +85,7 @@ Gui, Submit, NoHide
 Gui, Destroy
 
 ;if custom destination does not exist; create the folder.
+;Pandela And Siabus Were Here ;3 /)
 IfNotExist, DestinationVar
 	FileCreateDir, %DestinationVar%\
 
@@ -91,7 +116,6 @@ IfMsgBox, No
 
 ;check if Force MP4 is disabled (Default).
 if (ForceMP4 = 0) {
-;Pandela And Siabus Were Here ;3 /)
 ;do nothing LOL
 }
 
