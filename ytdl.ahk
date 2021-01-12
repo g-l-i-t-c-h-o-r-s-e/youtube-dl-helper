@@ -6,7 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ./Environment/Environment.ahk
 
 ;Default Variables Do Not Touch >:c
-backup := "*.reg"
+backup = *.reg
 EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath = %A_ProgramFiles%\youtube
@@ -99,7 +99,7 @@ IfNotExist, DestinationVar
 
 ;if playlist box is not checked (default) then ignore playlist in url.
 if (PlaylistVar = 0) {
-	playlist := "--no-playlist"
+	playlist = --no-playlist
 }
 
 ;if playlist box is checked; then you can guess what happens.
@@ -113,25 +113,25 @@ SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button
 MsgBox, 4,ayylmao, %title%
 IfMsgBox, Yes
 { 
-	format := "--extract-audio --audio-format m4a --format bestaudio[ext=m4a]"
-	DisableForceMP4 := 1 ;Set DisableForceMP4 var to 1 to make sure it doesnt break the Audio extraction option.
+	format = --extract-audio --audio-format m4a --format bestaudio[ext=m4a]
+	DisableForceMP4 = 1 ;Set DisableForceMP4 var to 1 to make sure it doesnt break the Audio extraction option.
 }
 
 IfMsgBox, No
 {
-	format := "--format bestvideo+bestaudio/best"
+	format = --format bestvideo+bestaudio/best
 }
 
 ;check if Force MP4 is disabled (Default).
-if (ForceMP4 = 0) {
+;if (ForceMP4 = 0) {
 ;do nothing LOL
-}
+;}
 
 ;check if Force MP4 is enabled, if so then yeah you get a motherfucking mp4 my guy.
 if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to prevent Audio extraction option from breaking.
-	format := "" ;clear the var first cus why not.
+	;format := "" ;clear the var first cus why not.
 	sleep, 10
-	format := "--format bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4 "
+	format = --format bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4
 }
 
 
