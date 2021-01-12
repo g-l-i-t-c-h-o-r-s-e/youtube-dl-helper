@@ -14,7 +14,7 @@ ytbinary := "youtube-dl.exe"
 ffbinary := "ffmpeg.exe"
 ffBin := A_WorkingDir . "\bin\"
 DisableForceMP4 := 0
-;DownloadDir := UserPath . "\Downloads" ;testin shtuff
+DownloadDir := UserPath . "\Downloads" ;testin shtuff
 ;msgbox, %DownloadDir%
 
 ;if Environment Variables are not backed up; do it once.
