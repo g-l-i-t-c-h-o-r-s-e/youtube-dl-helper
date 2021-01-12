@@ -28,6 +28,7 @@ Download full ffmpeg (from before they cut some codec support) from https://web.
 
 • To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/>  
 For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
+
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
 
 • When the Destination window pops up, just press `Enter` if you want the video to download in the same folder as the script.<br/>
