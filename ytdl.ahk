@@ -9,32 +9,32 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 backup := "*.reg"
 EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
-ytdlPath := UserPath . "\Videos\youtube"
-ytbinary := "youtube-dl.exe"
-ffbinary := "ffmpeg.exe"
-ffBin := A_WorkingDir . "\bin\"
-DisableForceMP4 := 0
+ytdlPath = %A_ProgramFiles%\youtube
+ytbinary = youtube-dl.exe
+ffbinary = ffmpeg.exe
+ffBin = %A_WorkingDir%\ffmpeg\ffmpeg-20200826-8f2c1f2-win64-static\bin\
+DisableForceMP4 = 0
 
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
 ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
 
-;DownloadDir := UserPath . "\Downloads" ;testin shtuff
+DownloadDir := UserPath . "\Downloads" ;testin shtuff
 ;msgbox, %DownloadDir%
 
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
-	msgbox, We need to Run the Script as Admin
+	;msgbox, We need to Run the Script as Admin ;surpurfulous, just slows down
 	If (!A_IsAdmin){ ;we need the script to run as admin to make changes in Program Files!
 		Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
 	}
 	
-	msgbox, Backing Up Environment Variables...`nCheck Script Folder For .reg Files
+	;msgbox, Backing Up Environment Variables...`nCheck Script Folder For .reg Files
 	Env_UserBackup()
 	Env_SystemBackup()
 	
-	Run, powershell -command "wget %youtubedldownload% -OutFile %A_ScriptDir%\youtube-dl.exe"
-	RunWait, powershell -command "wget %ffmpegdownload% -OutFile %A_ScriptDir%\ffmpeg.zip"
-	RunWait, powershell -command "Expand-Archive -LiteralPath %A_ScriptDir%\ffmpeg.zip -DestinationPath %A_ScriptDir%\ffmpeg"
+	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe; wget %ffmpegdownload% -OutFile ffmpeg.zip; Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
+	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
+	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
 
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
@@ -50,7 +50,7 @@ if !FileExist(backup) {
 		if !InStr(FileExist(ytbinary), "D") {
 			FileMove, %ytbinary%, %ytdlPath%
 			if !InStr(FileExist(ffmPath), "D") {
-				msgbox, ffmpeg path does not exist, creating
+				;msgbox, ffmpeg path does not exist, creating
 				sleep, 100
 				FileCreateDir, %ffmPath% ;create ffmpeg directory in programfiles
 				sleep, 200
@@ -78,7 +78,7 @@ sleep, 10
 ;}
 ;else
 
-Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %A_WorkingDir%
+Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
 Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
 Gui, Add, Checkbox, x281 y46 w140 h20 +Right vForceMP4, Force MP4 Download?
