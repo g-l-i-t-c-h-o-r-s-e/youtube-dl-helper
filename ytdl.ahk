@@ -32,7 +32,7 @@ if !FileExist(backup) {
 	Env_UserBackup()
 	Env_SystemBackup()
 	
-	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe; wget %ffmpegdownload% -OutFile ffmpeg.zip; Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
+	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
 ;meme
