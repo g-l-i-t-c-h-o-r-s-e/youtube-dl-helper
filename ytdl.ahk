@@ -65,7 +65,7 @@ if !FileExist(backup) {
 	;{
 	;     ;nothing to see here 8===D~
 	;}
-}
+} }
 
 ^+c::
 leClip := clipboard
