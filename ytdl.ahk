@@ -2,8 +2,32 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-DownloadDir := "`%USERPROFILE`%\Downloads" ;testin shtuff
+#Include ./Environment/Environment.ahk
 DisableForceMP4 := 0
+
+backup := "*.reg"
+EnvGet, UserPath, USERPROFILE
+ytdlPath := UserPath . "\Videos\youtube"
+;DownloadDir := UserPath . "\Downloads" ;testin shtuff
+;msgbox, %DownloadDir%
+
+;if Environment Variables are not backed up; do it once.
+if !FileExist(backup) {
+	msgbox, Backing Up Environment Variables...`nCheck Script Folder For .reg Files
+	Env_UserBackup()
+	Env_SystemBackup()
+	
+	MsgBox,4,oWo,Add YouTube folder to path?
+	IfMsgBox, Yes
+	{ 
+		Env_UserAdd("PATH", ytdlPath) ;adds the "youtube" folder to the path; also once.
+	}
+	
+	IfMsgBox, No
+	{
+	     ;nothing to see here 8===D~
+	}
+}
 
 ^+c::
 leClip := clipboard
@@ -61,6 +85,7 @@ IfMsgBox, No
 
 ;check if Force MP4 is disabled (Default).
 if (ForceMP4 = 0) {
+;Pandela And Siabus Were Here ;3 /)
 ;do nothing LOL
 }
 
@@ -80,15 +105,13 @@ EnvGet, CheckPathEnvVar, PATH
 If !RegExMatch(CheckPathEnvVar,"youtube") {
 	Run, %Dir%%code%
 	playlist := ""
-	DisableForceMP4 := 0
+	DisableForceMP4 := 0	
 	Return
 }
 else
-
- ;Pandela And Siabus Were Here ;3 /)
  Run, %code%
-       playlist := ""
-       DisableForceMP4 := 0
+     playlist := ""
+     DisableForceMP4 := 0
 Return
 
 
