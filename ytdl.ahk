@@ -1,4 +1,7 @@
-; Version 1.0
+; Version 1.01
+; TODO: auto run at boot
+; TODO: Clean up multiple boxes on install
+; TODO: Custom folder feature download to that folder
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
 ; #Warn  ; Enable warnings to assist with detecting common errors.
@@ -54,7 +57,7 @@ if !FileExist(backup) {
 				FileCreateDir, %ffmPath% ;create ffmpeg directory in programfiles
 				sleep, 200
 				FileMove, %ffBin%\*.exe, %ffmPath%
-				FileRemoveDir, %A_WorkingDir%\ffmpeg,1
+				FileRemoveDir, %A_WorkingDir%\ffmpeg
 				FileDelete, %A_WorkingDir%\ffmpeg.zip
 				Env_UserAdd("PATH", ffmPath)
 			}
@@ -123,7 +126,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe  %playlist% --output %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
+Code = youtube-dl.exe  %playlist% --output %DestinationVar%\`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
