@@ -34,5 +34,5 @@ Download full ffmpeg (from before they cut some codec support) from https://web.
 
 • You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Three times, Then `Enter` once more for a faster playlist download workflow.<br/>
 
-• youtube-dl does require ffmpeg to be installed as an environment variable (like in the PATH variable) as far as I know; however you can run this script in the same folder as youtube-dl.exe without having to set the youtube-dl.exe folder to the PATH envoronment variable.<br/>
+• youtube-dl does require ffmpeg to be installed as an environment variable (like in the PATH variable) as far as I know; however you can run this script in the same folder as youtube-dl.exe without having to set the youtube-dl.exe folder to the PATH envoronment variable. ~~and you might have to use the ForceMP4 mode if you dont setup ffmpeg in the PATH<br/>
 
