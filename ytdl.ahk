@@ -7,13 +7,14 @@ DisableForceMP4 := 0
 
 ^+c::
 leClip := clipboard
-sleep, 200
+sleep, 10
 
+;obsolete
 ;if youtube is not in clipboard, ignore.
-if !InStr(leClip, "youtu") {
-	return
-}
-else
+;if !InStr(leClip, "youtu") {
+;	return
+;}
+;else
 	
 
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %A_WorkingDir%
@@ -73,11 +74,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-<<<<<<< HEAD
-Code = youtube-dl.exe %playlist% --output  %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames  %format% %leClip%
-=======
-Code = youtube-dl.exe  %playlist% --output %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames %format%  "%leClip%" ;quit destroying mah strink bab >:c
->>>>>>> eebcac901d74293e11526054b15a02bff893f107
+Code = youtube-dl.exe  %playlist% --output %DestinationDir%\`%(title)s.`%(ext)s --restrict-filenames %format%  "%leClip%" ;quit destroying mah strink bab >:c
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
