@@ -10,7 +10,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 backup = *.reg
 EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
-ytdlPath = %A_ProgramFiles%\youtube
+ytdlPath = %A_ProgramFiles%\youtube-dl
 ytbinary = youtube-dl.exe
 ffbinary = ffmpeg.exe
 ffBin = %A_WorkingDir%\ffmpeg\ffmpeg-20200826-8f2c1f2-win64-static\bin\
@@ -19,12 +19,10 @@ DisableForceMP4 = 0
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
 ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
 
-DownloadDir := UserPath . "\Downloads" ;testin shtuff
-;msgbox, %DownloadDir%
+DownloadDir = %UserPath%\Downloads
 
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
-	;msgbox, We need to Run the Script as Admin ;surpurfulous, just slows down
 	If (!A_IsAdmin){ ;we need the script to run as admin to make changes in Program Files!
 		Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%"
 	}
@@ -36,13 +34,13 @@ if !FileExist(backup) {
 	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
-;meme
+
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
 		if !InStr(FileExist(ytdlPath), "D") 
 		{
-			FileCreateDir, %ytdlPath% ;create youtube directory in Videos folder
+			FileCreateDir, %ytdlPath% ;create directory for youtube-dl
 			FileMove, %ytbinary%, %ytdlPath%\%ytbinary%
 			Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
 		}
@@ -52,34 +50,20 @@ if !FileExist(backup) {
 		if !InStr(FileExist(ytbinary), "D") {
 			FileMove, %ytbinary%, %ytdlPath%
 			if !InStr(FileExist(ffmPath), "D") {
-				;msgbox, ffmpeg path does not exist, creating
 				sleep, 100
 				FileCreateDir, %ffmPath% ;create ffmpeg directory in programfiles
 				sleep, 200
 				FileMove, %ffBin%\*.exe, %ffmPath%
 				FileRemoveDir, %A_WorkingDir%\ffmpeg
 				FileDelete, %A_WorkingDir%\ffmpeg.zip
-				Env_UserAdd("PATH", ffmPath)   ;adds the "youtube" folder to the path; also once.
+				Env_UserAdd("PATH", ffmPath)
 			}
 		}
-	;}	
-	
-	;IfMsgBox, No
-	;{
-	;     ;nothing to see here 8===D~
-	;}
 } }
 
 ^+c::
 leClip := clipboard
 sleep, 10
-
-;obsolete
-;if youtube is not in clipboard, ignore.
-;if !InStr(leClip, "youtu") {
-;	return
-;}
-;else
 
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
