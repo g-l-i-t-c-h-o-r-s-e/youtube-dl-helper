@@ -56,7 +56,7 @@ if !FileExist(backup) {
 				FileCreateDir, %ffmPath% ;create ffmpeg directory in programfiles
 				sleep, 200
 				FileMove, %ffBin%\*.exe, %ffmPath%
-				FileRemoveDir, %ffBin%
+				FileRemoveDir, %A_WorkingDir%\ffmpeg
 				Env_UserAdd("PATH", ffmPath)   ;adds the "youtube" folder to the path; also once.
 			}
 		}
