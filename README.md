@@ -26,8 +26,7 @@ Download full ffmpeg (from before they cut some codec support) from https://web.
 # Tips:
 • Its suggested to move this script into the `Videos\youtube` folder after first installation for the full experience. However, the Destination window will populate with whatever folder the script is in so feel free to do whatever.<br/>
 
-• To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/>  
-For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
+• To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/>For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
 
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
 
