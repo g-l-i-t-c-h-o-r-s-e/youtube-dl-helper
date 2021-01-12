@@ -29,6 +29,7 @@ Add both to PATH environment variables
 • Ignores url's that aren't YouTube<br/>
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
+• Automatically downloads Video and Audio at highest quality<br>/
 • Prompts for output directory; otherwise you can quickly press Enter key to use default (the same folder script is in)<br/>
 
 # Tips:
