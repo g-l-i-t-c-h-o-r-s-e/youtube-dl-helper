@@ -32,6 +32,8 @@ Add both to PATH environment variables
 • Automatically downloads Video and Audio at highest quality<br>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default (the same folder script is in)<br/>
+• Optionally add the `youtube` folder to the `PATH` environment variable (so you can use it anywhere else too, in command line for instance.)<br/>
+
 
 # Tips:
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
