@@ -30,9 +30,13 @@ DoItNao:
 Gui, Submit, NoHide
 Gui, Destroy
 
+;if custom destination does not exist; create the folder.
+IfNotExist, DestinationVar
+	FileCreateDir, %DestinationVar%\
+
 ;if playlist box is not checked (default) then ignore playlist in url.
 if (PlaylistVar = 0) {
-	playlist = --no-playlist
+	playlist := "--no-playlist"
 }
 
 ;if playlist box is checked; then you can guess what happens.
@@ -69,7 +73,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe %playlist% --output  %DestinationVar%\`%(title)s.`%(ext)s --restrict-filenames  %format% %leClip%
+Code := " youtube-dl.exe " . playlist . " --output " . DestinationVar . "\%(title)s.%(ext)s --restrict-filenames " . format . " " . chr(0x22) . leClip . chr(0x22)
 
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
@@ -78,14 +82,14 @@ If !RegExMatch(CheckPathEnvVar,"youtube") {
 	Run, %code% ;had to use backslash?
 	playlist := ""
 	DisableForceMP4 := 0
-Return
+	Return
 }
 else
-     Run, %code%
+ ;Pandela And Siabus Were Here ;3 /)
+ Run, %code%
      playlist := ""
      DisableForceMP4 := 0
 Return
-;Pandela And Siabus Were Here ;3 /)
 
 
 ChangeButtonNames: 
