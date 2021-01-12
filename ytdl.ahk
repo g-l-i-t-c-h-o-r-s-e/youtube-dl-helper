@@ -58,7 +58,7 @@ if !FileExist(backup) {
 				sleep, 200
 				FileMove, %ffBin%\*.exe, %ffmPath%
 				FileRemoveDir, %A_WorkingDir%\ffmpeg
-				FileRemove, %A_WorkingDir%\ffmpeg.zip
+				FileDelete, %A_WorkingDir%\ffmpeg.zip
 				Env_UserAdd("PATH", ffmPath)   ;adds the "youtube" folder to the path; also once.
 			}
 		}
