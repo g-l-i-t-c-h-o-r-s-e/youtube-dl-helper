@@ -12,7 +12,7 @@ ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath := UserPath . "\Videos\youtube"
 ytbinary := "youtube-dl.exe"
 ffbinary := "ffmpeg.exe"
-ffBin := A_WorkingDir . "\bin\"
+ffBin := A_WorkingDir . "ffmpeg\bin\"
 DisableForceMP4 := 0
 
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
