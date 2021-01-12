@@ -84,10 +84,11 @@ If !RegExMatch(CheckPathEnvVar,"youtube") {
 	Return
 }
 else
+
  ;Pandela And Siabus Were Here ;3 /)
  Run, %code%
-     playlist := ""
-     DisableForceMP4 := 0
+       playlist := ""
+       DisableForceMP4 := 0
 Return
 
 
