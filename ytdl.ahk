@@ -32,8 +32,8 @@ if !FileExist(backup) {
 	Env_UserBackup()
 	Env_SystemBackup()
 	
-	Run, poweshell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
-	Run, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
+	Run, poweshell -command "wget %youtubedldownload% -OutFile %A_ScriptDir%\youtube-dl.exe"
+	Run, powershell -command "wget %ffmpegdownload% -OutFile %A_ScriptDir%\ffmpeg.zip"
 	Run, powershell -command "[System.IO.Compression.ZipFile]::ExtractToDirectory(ffmpeg.zip, ffmpeg)"
 
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
