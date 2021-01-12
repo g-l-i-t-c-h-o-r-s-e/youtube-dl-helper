@@ -30,6 +30,7 @@ Add both to PATH environment variables
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
 • Automatically downloads Video and Audio at highest quality<br>
+• Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default (the same folder script is in)<br/>
 
 # Tips:
