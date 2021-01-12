@@ -8,6 +8,7 @@ DisableForceMP4 := 0
 backup := "*.reg"
 EnvGet, UserPath, USERPROFILE
 ytdlPath := UserPath . "\Videos\youtube"
+binary := "youtube-dl.exe"
 ;DownloadDir := UserPath . "\Downloads" ;testin shtuff
 ;msgbox, %DownloadDir%
 
@@ -20,7 +21,12 @@ if !FileExist(backup) {
 	MsgBox,4,oWo,Add YouTube folder to path?
 	IfMsgBox, Yes
 	{ 
-		Env_UserAdd("PATH", ytdlPath) ;adds the "youtube" folder to the path; also once.
+		IfNotExist, ytdlPath
+			FileCreateDir, %ytdlPath%\ ;create youtube directory in Videos folder
+		Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
+		if FileExist(binary) {
+			FileMove, %binary%, %ytdlPath%
+		}
 	}
 	
 	IfMsgBox, No
