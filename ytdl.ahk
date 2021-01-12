@@ -1,4 +1,6 @@
-; Version 1.0
+; Version 1.01
+; TODO: auto run at boot
+; TODO: Clean up multiple boxes on install
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
 ; #Warn  ; Enable warnings to assist with detecting common errors.
