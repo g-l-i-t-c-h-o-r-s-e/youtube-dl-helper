@@ -32,7 +32,7 @@ Add both to PATH environment variables
 • Automatically downloads Video and Audio at highest quality<br>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default (the same folder script is in)<br/>
-• Optionally add the `youtube` folder to the `PATH` environment variable as well as make a `youtube` folder in your Videos folder for the binary to reside<br/>
+• Optionally add the `youtube` folder to the `PATH` environment variable and make a `youtube` folder in your Videos folder for the binary to reside<br/>
 
 
 # Tips:
