@@ -43,6 +43,7 @@ if !FileExist(backup) {
 		if !InStr(FileExist(ytdlPath), "D") 
 		{
 			FileCreateDir, %ytdlPath% ;create youtube directory in Videos folder
+			FileMove, %ytbinary%, %ytdlPath%
 			Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
 		}
 		
@@ -57,6 +58,7 @@ if !FileExist(backup) {
 				sleep, 200
 				FileMove, %ffBin%\*.exe, %ffmPath%
 				FileRemoveDir, %A_WorkingDir%\ffmpeg
+				FileRemove, %A_WorkingDir%\ffmpeg.zip
 				Env_UserAdd("PATH", ffmPath)   ;adds the "youtube" folder to the path; also once.
 			}
 		}
