@@ -128,7 +128,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe  %playlist% --output %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames %format%  "%leClip%" ;quit destroying mah strink bab >:c
+Code = youtube-dl.exe  %playlist% --output %DownloadDir%\`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
 
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
