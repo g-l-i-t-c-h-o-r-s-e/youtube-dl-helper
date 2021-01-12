@@ -25,9 +25,10 @@ Download full ffmpeg (from before they cut some codec support) from https://web.
 
 # Tips:
 • Its suggested to move this script into the `Videos\youtube` folder after first installation for the full experience.<br/>
+• To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/> 
+For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
 • When the Destination window pops up, just press `Enter` if you want the video to download in the same folder as the script.<br/>
 • You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Three times, Then `Enter` once more for a faster playlist download workflow.<br/>
 • youtube-dl does require ffmpeg to be installed as an environment variable (like in the PATH variable) as far as I know; however you can run this script in the same folder as youtube-dl.exe without having to set the youtube-dl.exe folder to the PATH envoronment variable.<br/>
-• To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/> 
-For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
+
