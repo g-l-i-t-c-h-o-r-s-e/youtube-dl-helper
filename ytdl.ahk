@@ -2,6 +2,7 @@
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
 ; TODO: Custom folder feature download to that folder
+; TODO: Batch download
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
 ; #Warn  ; Enable warnings to assist with detecting common errors.
