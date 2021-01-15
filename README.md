@@ -1,7 +1,7 @@
 # youtube-dl-helper
 An AutoHotKey Script Made To Download Youtube Videos and Music <3<br>
 <br/>
-You'll need to downlaod autohotkey so it can run in administrator mode to backup your environment variables. 
+You'll need to download autohotkey so it can run in administrator mode to backup your environment variables. 
 Download AutoHotKey from: https://www.autohotkey.com/download/ahk-install.exe<br/>
 ~~Download `youtube-dl.exe` from https://github.com/ytdl-org/youtube-dl/releases~~<br>
 ~~Download full ffmpeg (from before they cut some codec support) from:~~ <br/>
