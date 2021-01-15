@@ -7,7 +7,7 @@ Download AutoHotKey from: https://www.autohotkey.com/download/ahk-install.exe<br
 ~~Download full ffmpeg (from before they cut some codec support) from https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip~~<br><br>
 
 1. ~~After Downloading `youtube-dl.exe` & `ffmpeg.exe` <br/> **place `youtube-dl.exe` and the ffmpeg `bin` folder; into the root script folder**;<br/>then run the script for the first time.~~ this is done automagically now!~<br/>
-**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Variable.**
+__**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Variable.**__<br/>
 **3. Profit.**
 
 # To use:
