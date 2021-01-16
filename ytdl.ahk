@@ -27,7 +27,7 @@ ffBin = %A_WorkingDir%\ffmpeg\ffmpeg-20200826-8f2c1f2-win64-static\bin\
 DisableForceMP4 = 0
 
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
-ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
+ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip ;ffplay and ffprobe are also included :3
 
 
 ;if Environment Variables are not backed up; do it once.
@@ -84,8 +84,8 @@ sleep, 20
 guicontrol,focus,DestinationVar
 Send, {Tab}
 
-loop,
-	
+loop,	
+;Pandela And Siabus Were Here ;3 /)	
 {
 		;if window is not active
 	if !WinActive(Titl) {
@@ -155,44 +155,57 @@ loop,
 			continue
 		}
 		
+		;if U is pressed when window is active update leClip with current clipboard contents
+		if WinActive(Titl) {
+			GetKeyState, state, U, P
+			if state = D
+			{
+				;GuiControl,, DestinationVar, clipboard
+				leClip := ""
+				leClip := clipboard
+				msgbox, Clipboard Updated!
+				continue
+			}
+			
+		}
 	}
-}
-Return
-
-DoItNao:
-Gui, Submit, NoHide
-Gui, Destroy
-
+	
+	}
+	Return
+	
+	DoItNao:
+	Gui, Submit, NoHide
+	Gui, Destroy
+	
 ;if custom destination does not exist; create the folder.
-;Pandela And Siabus Were Here ;3 /)
-IfNotExist, DestinationVar
-	FileCreateDir, %DestinationVar%\
-
+	IfNotExist, DestinationVar
+		FileCreateDir, %DestinationVar%\
+	
 ;if playlist box is not checked (default) then ignore playlist in url.
-if (PlaylistVar = 0) {
-	playlist = --no-playlist
-}
-
+	if (PlaylistVar = 0) {
+		playlist = --no-playlist
+	}
+	
 ;if playlist box is checked; then you can guess what happens.
-if (PlaylistVar = 1) {
-	playlist := ""
-}
-
+	if (PlaylistVar = 1) {
+		playlist := ""
+	}
+	
 ;the A/V selection dialog.
-title := "                  Pick Your Poison"
-SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button names.
-MsgBox, 4,ayylmao, %title%
-IfMsgBox, Yes
-{ 
-	format = --extract-audio --audio-format m4a --format bestaudio[ext=m4a]
-	DisableForceMP4 = 1 ;Set DisableForceMP4 var to 1 to make sure it doesnt break the Audio extraction option.
-}
-
-IfMsgBox, No
-{
-	format = --format bestvideo+bestaudio/best
-}
-
+	title := "                  Pick Your Poison"
+	SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button names.
+	MsgBox, 4,ayylmao, %title%
+	IfMsgBox, Yes
+	{ 
+		format = --extract-audio --audio-format m4a --format bestaudio[ext=m4a]
+		DisableForceMP4 = 1 ;Set DisableForceMP4 var to 1 to make sure it doesnt break the Audio extraction option.
+	}
+	
+	IfMsgBox, No
+	{
+		format = --format bestvideo+bestaudio/best
+	}
+	
 ;check if Force MP4 is disabled (Default).
 ;if (ForceMP4 = 0) {
 ;do nothing LOL
@@ -215,13 +228,13 @@ If !RegExMatch(CheckPathEnvVar,"youtube-dl") {
 	Run, %Dir%%code%
 	playlist := ""
 	DisableForceMP4 := 0	
-	Return
+	Reload ;W;
 }
 else
  Run, %code%
      playlist := ""
      DisableForceMP4 := 0
-Return
+Reload ;W;
 
 
 ChangeButtonNames: 
