@@ -1,4 +1,4 @@
-; Version 1.01
+; Version 1.03
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
 ; TODO: Custom folder feature download to that folder
