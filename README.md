@@ -18,11 +18,11 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 **HotKeys (when menu is active):**<br/>
 `D:` Downloads Folder<br/>
 `U:` Update Clipboard with current value<br/>
-`M:` Music Folder<br/>
-`V:` Videos Folder<br/>
 `R:` Root/Parent Folder Script is Within<br/>
 `P:` Custom Folder (WIP)<br/>
 `Y:` Videos/youtube Folder<br/>
+`M:` Music Folder<br/>
+`V:` Videos Folder<br/>
 <br/>
 # Features:
 • Easy to use<br/>
