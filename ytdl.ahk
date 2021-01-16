@@ -1,4 +1,4 @@
-; Version 1.02
+; Version 1.01
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
 ; TODO: Custom folder feature download to that folder
@@ -19,6 +19,7 @@ videosPath = %UserPath%\Videos
 DownloadDir = %UserPath%\Downloads
 ytPath = %UserPath%\Videos\youtube
 customDir = %UserPath%\Videos\pony ;custom dir here :p
+ParentFolder = %A_WorkingDir% ;parent/root folder that script is currently in
 
 ffbinary = ffmpeg.exe
 ytbinary = youtube-dl.exe
@@ -72,79 +73,90 @@ if !FileExist(backup) {
 ^+c::
 leClip := clipboard
 sleep, 10
-
+Titl := "                     Enter Your Destination Path Below Or Press A HotKey:"
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
 Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
 Gui, Add, Checkbox, x281 y46 w140 h20 +Right vForceMP4, Force MP4 Download?
 gui, -sysmenu
-Gui, Show, xCenter yCenter h66 w425, Destination
+Gui, Show, xCenter yCenter h66 w425, %Titl% 
 sleep, 20
 guicontrol,focus,DestinationVar
 Send, {Tab}
 
-	loop,
-		
-	{
+loop,
+	
+{
 		;if window is not active
-		if !WinActive("Destination") {
+	if !WinActive(Titl) {
+		continue
+	}
+	
+		;if V is pressed while window is active
+	if WinActive(Titl) {
+		GetKeyState, state, V, P
+		if state = D
+		{
+			GuiControl,, DestinationVar, %videosPath%
 			continue
 		}
 		
-		;if V is pressed while window is active
-		if WinActive("Destination") {
-			GetKeyState, state, V, P
-			if state = D
-			{
-				GuiControl,, DestinationVar, %videosPath%
-				continue
-			}
-			
-		}
-		
+	}
+	
 		;if M is pressed while window is active
-		if WinActive("Destination") {
-			GetKeyState, state, M, P
-			if state = D
-			{
-				GuiControl,, DestinationVar, %musicPath%
-				continue
-			}
-			
+	if WinActive(Titl) {
+		GetKeyState, state, M, P
+		if state = D
+		{
+			GuiControl,, DestinationVar, %musicPath%
+			continue
 		}
 		
+	}
+	
 		;if Y is pressed while window is active
-		if WinActive("Destination") {
-			GetKeyState, state, Y, P
-			if state = D
-			{
-				GuiControl,, DestinationVar, %ytPath%
-				continue
-			}
-		}
-		
-		;if D is pressed while window is active
-		if WinActive("Destination") {
-			GetKeyState, state, D, P
-			if state = D
-			{
-				GuiControl,, DestinationVar, %DownloadDir%
-				continue
-			}
-			
-		}
-		
-		;if P is pressed while window is active
-		if WinActive("Destination") {
-			GetKeyState, state, P, P
-			if state = D
-			{
-				GuiControl,, DestinationVar, %customDir%
-				continue
-			}
-			
+	if WinActive(Titl) {
+		GetKeyState, state, Y, P
+		if state = D
+		{
+			GuiControl,, DestinationVar, %ytPath%
+			continue
 		}
 	}
+	
+		;if D is pressed while window is active
+	if WinActive(Titl) {
+		GetKeyState, state, D, P
+		if state = D
+		{
+			GuiControl,, DestinationVar, %DownloadDir%
+			continue
+		}
+		
+	}
+	
+		;if P is pressed while window is active
+	if WinActive(Titl) {
+		GetKeyState, state, P, P
+		if state = D
+		{
+			GuiControl,, DestinationVar, %customDir%
+			continue
+		}
+		
+	}
+	
+		;if R is pressed while window is active	
+	if WinActive(Titl) {
+		GetKeyState, state, R, P
+		if state = D
+		{
+			GuiControl,, DestinationVar, %ParentFolder%
+			continue
+		}
+		
+	}
+}
 Return
 
 DoItNao:
