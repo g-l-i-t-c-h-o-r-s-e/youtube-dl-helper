@@ -1,4 +1,4 @@
-; Version 1.01
+; Version 1.02
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
 ; TODO: Custom folder feature download to that folder
@@ -10,19 +10,24 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ./Environment/Environment.ahk
 
 ;Default Variables Do Not Touch >:c
-backup = *.reg
+backup = *.reg ; The backup .reg files of your System and User Environment Variables. Delete the two .reg files to trigger the install again. ( Developers Only >:c)
 EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath = %A_ProgramFiles%\youtube-dl
-ytbinary = youtube-dl.exe
+musicPath = %UserPath%\Music
+videosPath = %UserPath%\Videos
+DownloadDir = %UserPath%\Downloads
+ytPath = %UserPath%\Videos\youtube
+customDir = %UserPath%\Videos\pony ;custom dir here :p
+
 ffbinary = ffmpeg.exe
+ytbinary = youtube-dl.exe
 ffBin = %A_WorkingDir%\ffmpeg\ffmpeg-20200826-8f2c1f2-win64-static\bin\
 DisableForceMP4 = 0
 
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
 ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
 
-DownloadDir = %UserPath%\Downloads
 
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
@@ -72,10 +77,74 @@ Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
 Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
 Gui, Add, Checkbox, x281 y46 w140 h20 +Right vForceMP4, Force MP4 Download?
+gui, -sysmenu
 Gui, Show, xCenter yCenter h66 w425, Destination
 sleep, 20
 guicontrol,focus,DestinationVar
 Send, {Tab}
+
+	loop,
+		
+	{
+		;if window is not active
+		if !WinActive("Destination") {
+			continue
+		}
+		
+		;if V is pressed while window is active
+		if WinActive("Destination") {
+			GetKeyState, state, V, P
+			if state = D
+			{
+				GuiControl,, DestinationVar, %videosPath%
+				continue
+			}
+			
+		}
+		
+		;if M is pressed while window is active
+		if WinActive("Destination") {
+			GetKeyState, state, M, P
+			if state = D
+			{
+				GuiControl,, DestinationVar, %musicPath%
+				continue
+			}
+			
+		}
+		
+		;if Y is pressed while window is active
+		if WinActive("Destination") {
+			GetKeyState, state, Y, P
+			if state = D
+			{
+				GuiControl,, DestinationVar, %ytPath%
+				continue
+			}
+		}
+		
+		;if D is pressed while window is active
+		if WinActive("Destination") {
+			GetKeyState, state, D, P
+			if state = D
+			{
+				GuiControl,, DestinationVar, %DownloadDir%
+				continue
+			}
+			
+		}
+		
+		;if P is pressed while window is active
+		if WinActive("Destination") {
+			GetKeyState, state, P, P
+			if state = D
+			{
+				GuiControl,, DestinationVar, %customDir%
+				continue
+			}
+			
+		}
+	}
 Return
 
 DoItNao:
