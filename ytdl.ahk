@@ -1,12 +1,15 @@
-; Version 1.04
+; Version 1.07
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
+; TODO: Custom folder feature download to that folder
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#Include ./Environment/Environment.ahk
+#Include ./Environment/Environment.ahk ; Needed to Backup our shit and add the executables to your PATH variable.
+SetTitleMatchMode, 2
+
 
 ;Default Variables Do Not Touch >:c
 backup = *.reg ; The backup .reg files of your System and User Environment Variables. Delete the two .reg files to trigger the install again. ( Developers Only >:c)
@@ -17,8 +20,8 @@ musicPath = %UserPath%\Music
 videosPath = %UserPath%\Videos
 DownloadDir = %UserPath%\Downloads
 ytPath = %UserPath%\Videos\youtube
-customDir = %UserPath%\Videos\pony ;custom dir here :p
-ParentFolder = %A_WorkingDir% ;parent/root folder that script is currently in
+customDir = %UserPath%\Videos\pony ;custom dir here, u may touch i guess :p
+ParentFolder = %A_WorkingDir% ;parent/root folder that the uh script is currently in
 
 ffbinary = ffmpeg.exe
 ytbinary = youtube-dl.exe
@@ -44,14 +47,14 @@ if !FileExist(backup) {
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
 	
-	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
+	MsgBox,4,oWo,Add YouTube & FFMpeg Folder to PATH?
 	IfMsgBox, Yes
 	{ 
 		if !InStr(FileExist(ytdlPath), "D") 
 		{
 			FileCreateDir, %ytdlPath% ;create directory for youtube-dl
 			FileMove, %ytbinary%, %ytdlPath%\%ytbinary%
-			Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
+			Env_UserAdd("PATH", ytdlPath) ;adds the "youtube" folder to the path; also once.
 		}
 		
 		
@@ -66,6 +69,7 @@ if !FileExist(backup) {
 				FileRemoveDir, %A_WorkingDir%\ffmpeg
 				FileDelete, %A_WorkingDir%\ffmpeg.zip
 				Env_UserAdd("PATH", ffmPath)
+				msgbox, Installation Complete!~ c:
 			}
 		}
 } }
@@ -74,18 +78,30 @@ if !FileExist(backup) {
 
 ^+c::
 leClip := clipboard
+BatchDownloadVar := 0
 sleep, 10
 Titl := "                     Enter Your Destination Path Below Or Press A HotKey:"
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
-Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
+Gui, Add, Button, x2 y22 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
 Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
-Gui, Add, Checkbox, x281 y46 w140 h20 +Right vForceMP4, Force MP4 Download?
+Gui, Add, Checkbox, x290 y46 w130 h20 +Right vForceMP4, Force MP4 Download?
+;Pandela And Siabus Were Here ;3 /)
+Gui, Add, Checkbox, x146 y46 w140 h20 +Right vBatchDownloadVar gBatchMsg, Enable Batch Download?
 gui, -sysmenu
 Gui, Show, xCenter yCenter h66 w425, %Titl% 
 sleep, 20
 guicontrol,focus,DestinationVar
-;Pandela And Siabus Were Here ;3 /)
 Send, {Tab}
+
+;Batch Input File
+ArrayListIndex := 0
+loop, read, batch.txt
+{
+	count += 1
+	newcount := (count + 1)
+	ArrayList%A_Index% := A_LoopReadLine
+	ArrayList0 := A_Index + 1
+}
 
 loop,	
 {
@@ -149,7 +165,18 @@ loop,
 		{
 			leClip := ""
 			leClip := clipboard
-			msgbox, Target URL Updated With Clipboard!
+			
+			count := ""
+			newcount := ""
+			ArrayListIndex := 0
+			loop, read, batch.txt
+			{
+				count += 1
+				newcount := (count + 1)
+				ArrayList%A_Index% := A_LoopReadLine
+				ArrayList0 = %A_Index%
+			}
+			msgbox, Target URL Updated With Clipboard`n    And Batch Input File Updated!
 			continue
 		}
 		
@@ -169,7 +196,7 @@ IfNotExist, DestinationVar
 
 ;if playlist box is not checked (default) then ignore playlist in url.
 if (PlaylistVar = 0) {
-	playlist = --no-playlist
+	playlist := "--no-playlist"
 }
 
 ;if playlist box is checked; then you can guess what happens.
@@ -192,14 +219,8 @@ IfMsgBox, No
 	format = --format bestvideo+bestaudio/best
 }
 
-;check if Force MP4 is disabled (Default).
-;if (ForceMP4 = 0) {
-;do nothing LOL
-;}
-
 ;check if Force MP4 is enabled, if so then yeah you get a motherfucking mp4 my guy.
 if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to prevent Audio extraction option from breaking.
-	;format := "" ;clear the var first cus why not.
 	sleep, 10
 	format = --format bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4
 }
@@ -208,20 +229,78 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 Dir := A_WorkingDir . "\"
 Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
 
+
+;Batch Download Section >:3
+if (BatchDownloadVar = 1) 
+{
+	Loop,%ArrayList0%
+	{
+		
+		inputURL := ArrayList%A_Index%
+		BatchCode = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% %inputURL%	
+		
+		if (A_Index < newcount) { 
+			Run, %BatchCode%,,
+			;sleep, 200 ;THIS IS NEEDED
+			continue
+		}
+		else
+          gosub, ProcessCompleted
+			continue
+	}
+	
+}
+
+
 ;if "youtube" folder is not detected in PATH env variable; use binary within same folder as script
 EnvGet, CheckPathEnvVar, PATH
-If !RegExMatch(CheckPathEnvVar,"youtube-dl") {
+If !RegExMatch(CheckPathEnvVar,"youtube-dl") && if (BatchDownloadVar = 0) {
+	msgbox, youtube-dl not found; attempting to run it from %ParentFolder%
 	Run, %Dir%%code%
-	playlist := ""
-	DisableForceMP4 := 0	
-	Reload ;W;
+	sleep, 200
+	WinWait, youtube-dl.exe
+	gosub, ProcessCompleted
+	;Reload ;W;
+}
+
+;else
+if (BatchDownloadVar = 0)
+{
+	Run, %code%
+	sleep, 200
+	WinWait, youtube-dl.exe
+	gosub, ProcessCompleted
+	;Reload ;W;
+}
+Return
+
+
+
+BatchMsg:
+GuiControlGet, EnableBatch,,BatchDownloadVar,
+if (EnableBatch = 1) {
+	msgbox, You Are About To Download: %count% Files At Once! o:
 }
 else
-	Run, %code%
-     playlist := ""
-     DisableForceMP4 := 0
-Reload ;W;
+	return
+Return
 
+
+ProcessCompleted:
+wintit := "youtube-dl.exe"
+loop, {
+	if !WinExist(wintit)
+	{
+		;Play sound and reload script.
+		SoundPlay, %A_WinDir%\Media\ding.wav
+		SoundPlay *-1  ; Simple beep. If the sound card is not available, the sound is generated using the speaker.
+		sleep, 500
+		Reload ;W;
+	}
+	else
+		continue
+}
+Return
 
 
 ChangeButtonNames: 
