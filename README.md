@@ -17,7 +17,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 **HotKeys (when menu is active):**<br/>
 `D:` Downloads Folder<br/>
-`U:` Update Clipboard with current value<br/>
+`U:` Update Target URL with Current Clipboard or Update Batch Input Value<br/>
 `R:` Root/Parent Folder Script is Within<br/>
 `P:` Custom Folder (WIP)<br/>
 `Y:` Videos/youtube Folder<br/>
