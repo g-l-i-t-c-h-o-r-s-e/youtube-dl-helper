@@ -26,16 +26,18 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 <br/>
 # Features:
 • Easy to use<br/>
-• ~~Ignores url's that aren't YouTube~~ Adding Bigger Whitelist Soon<br/>
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
 • Automatically downloads Video and Audio at highest quality<br>
-• Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
+• Optionally add `youtube-dl` & `ffmpeg` folder to the `PATH` environment variable<br/>
+• Batch/Multiple URL input to download hundreds of videos or playlists at once lmfao<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default<br/>
-• Optionally add the `youtube` folder to the `PATH` environment variable and make a `youtube` folder in your Videos folder for the binary to reside<br/>
+• Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
 
 
 # Tips:
+•You would only need to use the `U` update HotKey in the case that the gui/menu _was already open_ and you wanted to use a different URL or you updated the batch input file.<br/>
+
 • To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/>For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
 
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
