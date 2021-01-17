@@ -17,7 +17,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 **HotKeys (when menu is active):**<br/>
 `D:` Downloads Folder<br/>
-`U:` Update Target URL with Current Clipboard Value<br/>
+`U:` Update Target URL with Current Clipboard or Update Batch Input Value<br/>
 `R:` Root/Parent Folder Script is Within<br/>
 `P:` Custom Folder (WIP)<br/>
 `Y:` Videos/youtube Folder<br/>
@@ -36,6 +36,8 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 
 # Tips:
+•You would only need to use the `U` update HotKey in the case that the gui/menu _was already open_ and you wanted to use a different URL or you updated the batch input file.<br/>
+
 • To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/>For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
 
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
