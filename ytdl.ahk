@@ -1,8 +1,6 @@
-; Version 1.01
+; Version 1.04
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
-; TODO: Custom folder feature download to that folder
-; TODO: Batch download
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
 ; #Warn  ; Enable warnings to assist with detecting common errors.
@@ -11,19 +9,26 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ./Environment/Environment.ahk
 
 ;Default Variables Do Not Touch >:c
-backup = *.reg
+backup = *.reg ; The backup .reg files of your System and User Environment Variables. Delete the two .reg files to trigger the install again. ( Developers Only >:c)
 EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath = %A_ProgramFiles%\youtube-dl
-ytbinary = youtube-dl.exe
+musicPath = %UserPath%\Music
+videosPath = %UserPath%\Videos
+DownloadDir = %UserPath%\Downloads
+ytPath = %UserPath%\Videos\youtube
+customDir = %UserPath%\Videos\pony ;custom dir here :p
+ParentFolder = %A_WorkingDir% ;parent/root folder that script is currently in
+
 ffbinary = ffmpeg.exe
+ytbinary = youtube-dl.exe
 ffBin = %A_WorkingDir%\ffmpeg\ffmpeg-20200826-8f2c1f2-win64-static\bin\
 DisableForceMP4 = 0
 
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
-ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip
+ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip ;ffplay and ffprobe are also included :3
 
-DownloadDir = %UserPath%\Downloads
+
 
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
@@ -38,7 +43,7 @@ if !FileExist(backup) {
 	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
-
+	
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
@@ -49,7 +54,7 @@ if !FileExist(backup) {
 			Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
 		}
 		
-				
+		
 		sleep, 20
 		if !InStr(FileExist(ytbinary), "D") {
 			FileMove, %ytbinary%, %ytdlPath%
@@ -65,26 +70,100 @@ if !FileExist(backup) {
 		}
 } }
 
+
+
 ^+c::
 leClip := clipboard
 sleep, 10
-
+Titl := "                     Enter Your Destination Path Below Or Press A HotKey:"
 Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
 Gui, Add, Button, x2 y20 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
 Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
 Gui, Add, Checkbox, x281 y46 w140 h20 +Right vForceMP4, Force MP4 Download?
-Gui, Show, xCenter yCenter h66 w425, Destination
+gui, -sysmenu
+Gui, Show, xCenter yCenter h66 w425, %Titl% 
 sleep, 20
 guicontrol,focus,DestinationVar
+;Pandela And Siabus Were Here ;3 /)
 Send, {Tab}
+
+loop,	
+{
+	;if the Destination EditBox is active; ignore the hotkeys below o: (To prevent box being reset)
+	GuiControlGet, control, focusv
+	if control = DestinationVar
+	{
+		continue
+	}
+	
+	;if window is not active; ignore hotkeys below as well
+	if !WinActive(Titl) {
+		continue
+	}
+	
+	if WinActive(Titl) {
+		GetKeyState, state, V, P
+		if state = D ;if V is pressed while window is active
+		{
+			GuiControl,, DestinationVar, %videosPath%
+			continue
+		}
+		
+		GetKeyState, state, M, P
+		if state = D ;if M is pressed while window is active
+		{
+			GuiControl,, DestinationVar, %musicPath%
+			continue
+		}
+		
+		GetKeyState, state, Y, P
+		if state = D ;if Y is pressed while window is active
+		{
+			GuiControl,, DestinationVar, %ytPath%
+			continue
+		}
+		
+		GetKeyState, state, D, P
+		if state = D ;if D is pressed while window is active
+		{
+			GuiControl,, DestinationVar, %DownloadDir%
+			continue
+		}
+		
+		GetKeyState, state, P, P
+		if state = D ;if P is pressed while window is active
+		{
+			GuiControl,, DestinationVar, %customDir%
+			continue
+		}
+		
+		GetKeyState, state, R, P
+		if state = D ;if R is pressed while window is active
+		{
+			GuiControl,, DestinationVar, %ParentFolder%
+			continue
+		}
+		
+		GetKeyState, state, U, P
+		if state = D ;if U is pressed while window is active
+		{
+			leClip := ""
+			leClip := clipboard
+			msgbox, Target URL Updated With Clipboard!
+			continue
+		}
+		
+	}
+}
 Return
+
+
 
 DoItNao:
 Gui, Submit, NoHide
 Gui, Destroy
 
 ;if custom destination does not exist; create the folder.
-;Pandela And Siabus Were Here ;3 /)
 IfNotExist, DestinationVar
 	FileCreateDir, %DestinationVar%\
 
@@ -135,13 +214,14 @@ If !RegExMatch(CheckPathEnvVar,"youtube-dl") {
 	Run, %Dir%%code%
 	playlist := ""
 	DisableForceMP4 := 0	
-	Return
+	Reload ;W;
 }
 else
- Run, %code%
+	Run, %code%
      playlist := ""
      DisableForceMP4 := 0
-Return
+Reload ;W;
+
 
 
 ChangeButtonNames: 

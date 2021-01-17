@@ -15,6 +15,15 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 1.	Copy Youtube URL
 2.	Press at the same time: `Ctrl+Shift+C`
 
+**HotKeys (when menu is active):**<br/>
+`D:` Downloads Folder<br/>
+`U:` Update Clipboard with current value<br/>
+`R:` Root/Parent Folder Script is Within<br/>
+`P:` Custom Folder (WIP)<br/>
+`Y:` Videos/youtube Folder<br/>
+`M:` Music Folder<br/>
+`V:` Videos Folder<br/>
+<br/>
 # Features:
 • Easy to use<br/>
 • ~~Ignores url's that aren't YouTube~~ Adding Bigger Whitelist Soon<br/>
@@ -22,13 +31,11 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 • Has Option to Extract Audio or Force MP4 output<br/>
 • Automatically downloads Video and Audio at highest quality<br>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
-• Prompts for output directory; otherwise you can quickly press Enter key to use default (the same folder script is in)<br/>
+• Prompts for output directory; otherwise you can quickly press Enter key to use default<br/>
 • Optionally add the `youtube` folder to the `PATH` environment variable and make a `youtube` folder in your Videos folder for the binary to reside<br/>
 
 
 # Tips:
-• Its suggested to move this script into the `Videos\youtube` folder after first installation for the full experience. However, the Destination window will populate with whatever folder the script is in so feel free to do whatever.<br/>
-
 • To create a custom output folder; add a backwardslash and name to the current destination string visible.<br/>For example: add `\MachineGirl` to `C:\Users\username\Videos\youtube`; to make it `C:\Users\username\Videos\youtube\MachineGirl`
 
 • You can you the `A` or `V` key on your keyboard to select Audio or Video on the dialog when prompted.<br/>
