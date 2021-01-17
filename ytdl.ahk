@@ -1,4 +1,4 @@
-; Version 1.03
+; Version 1.04
 ; TODO: auto run at boot
 ; TODO: Clean up multiple boxes on install
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -29,6 +29,7 @@ youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
 ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip ;ffplay and ffprobe are also included :3
 
 
+
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
 	If (!A_IsAdmin){ ;we need the script to run as admin to make changes in Program Files!
@@ -42,7 +43,7 @@ if !FileExist(backup) {
 	RunWait, powershell -command "wget %youtubedldownload% -OutFile youtube-dl.exe"
 	RunWait, powershell -command "wget %ffmpegdownload% -OutFile ffmpeg.zip"
 	RunWait, powershell -command "Expand-Archive -LiteralPath ffmpeg.zip -DestinationPath ffmpeg"
-
+	
 	MsgBox,4,oWo,Add YouTube & FFMpeg folder to path?
 	IfMsgBox, Yes
 	{ 
@@ -53,7 +54,7 @@ if !FileExist(backup) {
 			Env_UserAdd("PATH", ytdlPath)   ;adds the "youtube" folder to the path; also once.
 		}
 		
-				
+		
 		sleep, 20
 		if !InStr(FileExist(ytbinary), "D") {
 			FileMove, %ytbinary%, %ytdlPath%
@@ -69,6 +70,8 @@ if !FileExist(backup) {
 		}
 } }
 
+
+
 ^+c::
 leClip := clipboard
 sleep, 10
@@ -81,130 +84,114 @@ gui, -sysmenu
 Gui, Show, xCenter yCenter h66 w425, %Titl% 
 sleep, 20
 guicontrol,focus,DestinationVar
+;Pandela And Siabus Were Here ;3 /)
 Send, {Tab}
 
 loop,	
-;Pandela And Siabus Were Here ;3 /)	
 {
-		;if window is not active
+	;if the Destination EditBox is active; ignore the hotkeys below o: (To prevent box being reset)
+	GuiControlGet, control, focusv
+	if control = DestinationVar
+	{
+		continue
+	}
+	
+	;if window is not active; ignore hotkeys below as well
 	if !WinActive(Titl) {
 		continue
 	}
 	
-		;if V is pressed while window is active
 	if WinActive(Titl) {
 		GetKeyState, state, V, P
-		if state = D
+		if state = D ;if V is pressed while window is active
 		{
 			GuiControl,, DestinationVar, %videosPath%
 			continue
 		}
 		
-	}
-	
-		;if M is pressed while window is active
-	if WinActive(Titl) {
 		GetKeyState, state, M, P
-		if state = D
+		if state = D ;if M is pressed while window is active
 		{
 			GuiControl,, DestinationVar, %musicPath%
 			continue
 		}
 		
-	}
-	
-		;if Y is pressed while window is active
-	if WinActive(Titl) {
 		GetKeyState, state, Y, P
-		if state = D
+		if state = D ;if Y is pressed while window is active
 		{
 			GuiControl,, DestinationVar, %ytPath%
 			continue
 		}
-	}
-	
-		;if D is pressed while window is active
-	if WinActive(Titl) {
+		
 		GetKeyState, state, D, P
-		if state = D
+		if state = D ;if D is pressed while window is active
 		{
 			GuiControl,, DestinationVar, %DownloadDir%
 			continue
 		}
 		
-	}
-	
-		;if P is pressed while window is active
-	if WinActive(Titl) {
 		GetKeyState, state, P, P
-		if state = D
+		if state = D ;if P is pressed while window is active
 		{
 			GuiControl,, DestinationVar, %customDir%
 			continue
 		}
 		
-	}
-	
-		;if R is pressed while window is active	
-	if WinActive(Titl) {
 		GetKeyState, state, R, P
-		if state = D
+		if state = D ;if R is pressed while window is active
 		{
 			GuiControl,, DestinationVar, %ParentFolder%
 			continue
 		}
 		
-		;if U is pressed when window is active update leClip with current clipboard contents
-		if WinActive(Titl) {
-			GetKeyState, state, U, P
-			if state = D
-			{
-				;GuiControl,, DestinationVar, clipboard
-				leClip := ""
-				leClip := clipboard
-				msgbox, Clipboard Updated!
-				continue
-			}
-			
+		GetKeyState, state, U, P
+		if state = D ;if U is pressed while window is active
+		{
+			leClip := ""
+			leClip := clipboard
+			msgbox, Target URL Updated With Clipboard!
+			continue
 		}
+		
 	}
-	
-	}
-	Return
-	
-	DoItNao:
-	Gui, Submit, NoHide
-	Gui, Destroy
-	
+}
+Return
+
+
+
+DoItNao:
+Gui, Submit, NoHide
+Gui, Destroy
+
 ;if custom destination does not exist; create the folder.
-	IfNotExist, DestinationVar
-		FileCreateDir, %DestinationVar%\
-	
+IfNotExist, DestinationVar
+	FileCreateDir, %DestinationVar%\
+
 ;if playlist box is not checked (default) then ignore playlist in url.
-	if (PlaylistVar = 0) {
-		playlist = --no-playlist
-	}
-	
+if (PlaylistVar = 0) {
+	playlist = --no-playlist
+}
+
 ;if playlist box is checked; then you can guess what happens.
-	if (PlaylistVar = 1) {
-		playlist := ""
-	}
-	
+if (PlaylistVar = 1) {
+	playlist := ""
+}
+
 ;the A/V selection dialog.
-	title := "                  Pick Your Poison"
-	SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button names.
-	MsgBox, 4,ayylmao, %title%
-	IfMsgBox, Yes
-	{ 
-		format = --extract-audio --audio-format m4a --format bestaudio[ext=m4a]
-		DisableForceMP4 = 1 ;Set DisableForceMP4 var to 1 to make sure it doesnt break the Audio extraction option.
-	}
-	
-	IfMsgBox, No
-	{
-		format = --format bestvideo+bestaudio/best
-	}
-	
+title := "                  Pick Your Poison"
+SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button names.
+MsgBox, 4,ayylmao, %title%
+IfMsgBox, Yes
+{ 
+	format = --extract-audio --audio-format m4a --format bestaudio[ext=m4a]
+	DisableForceMP4 = 1 ;Set DisableForceMP4 var to 1 to make sure it doesnt break the Audio extraction option.
+}
+
+IfMsgBox, No
+{
+	format = --format bestvideo+bestaudio/best
+}
+
 ;check if Force MP4 is disabled (Default).
 ;if (ForceMP4 = 0) {
 ;do nothing LOL
@@ -230,10 +217,11 @@ If !RegExMatch(CheckPathEnvVar,"youtube-dl") {
 	Reload ;W;
 }
 else
- Run, %code%
+	Run, %code%
      playlist := ""
      DisableForceMP4 := 0
 Reload ;W;
+
 
 
 ChangeButtonNames: 
