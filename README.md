@@ -32,7 +32,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 • Batch/Multiple URL input to download hundreds of videos or playlists at once lmfao<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default<br/>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
-• Optionally add the `youtube` folder to the `PATH` environment variable and make a `youtube` folder in your Videos folder for the binary to reside<br/>
+• Optionally add `youtube` folder to the `PATH` environment variable plus `youtube` folder in your Videos folder for the binary to reside<br/>
 
 
 # Tips:
