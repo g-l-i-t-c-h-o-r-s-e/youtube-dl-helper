@@ -45,6 +45,8 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 • When the Destination window pops up, just press `Enter` if you want the video to download in the same folder as the script.<br/>
 
+• The Destination HotKeys only work when the Destination editbox is not active/selected; or when the enture winow is active.<br/>
+
 • You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Three times, Then `Enter` once more for a faster playlist download workflow.<br/>
 
 • youtube-dl does require ffmpeg to be installed as an environment variable (like in the PATH variable) as far as I know; however you can run this script in the same folder as youtube-dl.exe without having to set the youtube-dl.exe folder to the PATH environment variable.<br/>~~and you might have to use the ForceMP4 mode if you dont setup ffmpeg in the PATH~~<br/>
