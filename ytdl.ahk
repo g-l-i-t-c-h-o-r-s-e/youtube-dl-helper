@@ -238,12 +238,12 @@ if (BatchDownloadVar = 1)
 			
 			;Download all the stuff at the same time 
 			if (AllAtOnce = 1) {
-			Run, %BatchCode%,,
+			Run, %BatchCode%,,Min
 			}
 			
 			;Download one thing at a time
 			if (AllAtOnce = 0) {
-			RunWait, %BatchCode%,,
+			RunWait, %BatchCode%,,Min
 			;sleep, 200 ;this probably isnt needed anymore
 			}
 			continue
