@@ -25,7 +25,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 `U:` Update Target URL with Current Clipboard or Update Batch Input Value<br/>
 
 <br/>
-# Features: <br/>
+# Features:
 • Easy to use<br/>
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
