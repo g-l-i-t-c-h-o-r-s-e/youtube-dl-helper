@@ -4,7 +4,7 @@ An AutoHotKey Script Made To Swiftly Download Youtube Content & More <3 <3<br>
 You'll need to download autohotkey so it can run in administrator mode to backup your environment variables.<br/>
 Grab a copy from: https://www.autohotkey.com/download/ahk-install.exe<br/>
 
-1. ~~After Downloading `youtube-dl.exe` & `ffmpeg.exe` <br/> **place `youtube-dl.exe` and the ffmpeg `bin` folder; into the root script folder**;<br/>then run the script for the first time.~~ **this is downloaded and installed automagically now!~**<br/>
+1. ~~After Downloading `youtube-dl.exe` & `ffmpeg.exe` <br/> **place `youtube-dl.exe` and the ffmpeg `bin` folder; into the root script folder**;<br/>then run the script for the first time.~~ **this is added automagically now!~**<br/>
 __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Variable.**__<br/>
 **3. Profit.**
 
