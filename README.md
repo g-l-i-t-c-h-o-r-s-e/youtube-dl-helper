@@ -17,12 +17,13 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 **Detination HotKeys (when menu is active):**<br/>
 `D:` Downloads Folder<br/>
-`U:` Update Target URL with Current Clipboard or Update Batch Input Value<br/>
 `R:` Root/Parent Folder Script is Within<br/>
 `P:` Custom Folder (WIP)<br/>
 `Y:` Videos/youtube Folder<br/>
 `M:` Music Folder<br/>
 `V:` Videos Folder<br/>
+`U:` Update Target URL with Current Clipboard or Update Batch Input Value<br/>
+
 <br/>
 # Features:
 • Easy to use<br/>
