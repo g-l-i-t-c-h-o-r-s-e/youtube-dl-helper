@@ -97,7 +97,7 @@ loop, read, batch.txt
 {
 	count += 1
 	ArrayList%A_Index% := A_LoopReadLine
-	ArrayList0 := A_Index + 1
+	ArrayList0 := A_Index + 1 ;;
 }
 
 loop,	
@@ -224,14 +224,14 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 Dir := A_WorkingDir . "\"
 Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
 
-;Batch Download
+;Batch Download Section >:3
 if (BatchDownloadVar = 1) 
 {
 	Loop,%ArrayList0%
 	{
 		
 		inputURL := ArrayList%A_Index%
-		BatchCode = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% %inputURL%	
+		BatchCode = youtube-dl.exe %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% %inputURL%	
 		newcount := (count + 1)
 		
 		if (A_Index < newcount) { 
@@ -241,11 +241,10 @@ if (BatchDownloadVar = 1)
 		}
 		else
 			gosub, ProcessCompleted
-		continue
+		break
 	}
 	
 }
-;}		
 
 
 
@@ -256,24 +255,25 @@ If !RegExMatch(CheckPathEnvVar,"youtube-dl") && if (BatchDownloadVar = 0) {
 	Run, %Dir%%code%
 	WinWait, youtube-dl.exe
 	gosub, ProcessCompleted	
-	;Reload ;W;
 }
+
 ;else
 if (BatchDownloadVar = 0)
 {
 	Run, %code%
 	WinWait, youtube-dl.exe
 	gosub, ProcessCompleted
-	;Reload ;W;
 }
 Return
 
 
 
 BatchMsg:
+tidle := " "
+SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button names.
 GuiControlGet, EnableBatch,,BatchDownloadVar,
 if (EnableBatch = 1) {
-	msgbox, You Are About To Download: %count% Files At Once! o:
+	MsgBox,,%tidle%, You Are About To Download: %count% Files At Once! o:
 }
 else
 	return
@@ -283,9 +283,9 @@ Return
 ProcessCompleted:
 wintit := "youtube-dl.exe"
 loop, {
-	if !WinExist(wintit)
+	if !WinExist(wintit) ;loops to wait and see if youtube-dl.exe does not exist
 	{
-
+;Play sound when youtube-dl closes.
 SoundPlay, %A_WinDir%\Media\ding.wav
 SoundPlay *-1  ; Simple beep. If the sound card is not available, the sound is generated using the speaker.
 sleep, 500
@@ -298,7 +298,10 @@ Return
 ChangeButtonNames: 
 If !WinExist("ayylmao")
 {
-	return ;Keep waiting, if window don't exist.
+	if !WinExist(tidle)
+	{
+		return ;Keep waiting, if window don't exist.
+	}	
 }		
 
 ;Change the button names of specific msgboxs, if they exist.
@@ -306,6 +309,10 @@ if WinExist("ayylmao")
 {
 	buttonName := "&Audio"
 	buttonName2 := "&Video"
+}
+if WinExist(tidle)
+{
+	buttonName := "&k"
 }
 
 SetTimer, ChangeButtonNames, Off 
