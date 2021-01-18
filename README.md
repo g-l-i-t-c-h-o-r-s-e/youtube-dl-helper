@@ -13,7 +13,8 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 # To use:
 1.	Copy Youtube URL
-2.	Press at the same time: `Ctrl+Shift+C`
+2.	Press at the same time: `Ctrl+Shift+C`<br/>
+3. Press `Enter` or `A` or `V`
 
 **Detination HotKeys (when menu is active):**<br/>
 `D:` Downloads Folder<br/>
