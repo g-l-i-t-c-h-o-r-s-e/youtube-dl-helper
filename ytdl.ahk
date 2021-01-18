@@ -287,11 +287,14 @@ if (EnableBatch = 1) {
 	msgbox,4,hi,%mlem%
 	IfMsgBox, Yes
 	{ 
-AllAtOnce := 1
+		AllAtOnce := 1
+		if (count > 69) { ;lol 69, nice
+			msgbox,,yo, Just so you know, this is going to open up %count% command line windows at the same time; as well as download content at the fullest quality from each.`nPlease consider the other option "No" in the previous window.
+		}
 	}
 	IfMsgBox, No
 	{ 
-AllAtOnce := 0
+		AllAtOnce := 0
 	}
 }
 Return
