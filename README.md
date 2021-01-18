@@ -24,7 +24,6 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 `V:` Videos Folder<br/>
 `U:` Update Target URL with Current Clipboard or Update Batch Input Value<br/>
 
-<br/>
 **Features:**<br/>
 • Easy to use<br/>
 • Optional Playlist download checkbox<br/>
