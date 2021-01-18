@@ -45,7 +45,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 
 • When the Destination window pops up, just press `Enter` if you want the video to download in the same folder as the script.<br/>
 
-• The Destination HotKeys only work when the Destination editbox is not active/selected; or when the enture winow is active.<br/>
+• The Destination HotKeys only work when the Destination editbox is not active/selected; or when the enture window is active.<br/>
 
 • You can also press `Tab` once, Then `Space` once (to select the playlist option), `Tab` Three times, Then `Enter` once more for a faster playlist download workflow.<br/>
 
