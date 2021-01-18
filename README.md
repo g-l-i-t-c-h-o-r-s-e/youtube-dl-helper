@@ -1,5 +1,5 @@
 # youtube-dl-helper
-An AutoHotKey Script Made To Download Youtube Videos and Music <3<br>
+An AutoHotKey Script Made To Swiftly Download Youtube Content & More <3 <3<br>
 <br/>
 You'll need to download autohotkey so it can run in administrator mode to backup your environment variables.<br/>
 Grab a copy from: https://www.autohotkey.com/download/ahk-install.exe<br/>
