@@ -1,4 +1,4 @@
-; Version 1.07
+; Version 1.08
 ; TODO: auto run at boot
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
@@ -96,8 +96,9 @@ ArrayListIndex := 0
 loop, read, batch.txt
 {
 	count += 1
+	newcount := (count + 1)
 	ArrayList%A_Index% := A_LoopReadLine
-	ArrayList0 := A_Index + 1 ;;
+	ArrayList0 := A_Index + 1
 }
 
 loop,	
@@ -224,27 +225,36 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 Dir := A_WorkingDir . "\"
 Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
 
-;Batch Download Section >:3
+;Batch Download >:3
 if (BatchDownloadVar = 1) 
 {
 	Loop,%ArrayList0%
 	{
 		
 		inputURL := ArrayList%A_Index%
-		BatchCode = youtube-dl.exe %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% %inputURL%	
-		newcount := (count + 1)
+		BatchCode = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% %inputURL%	
 		
 		if (A_Index < newcount) { 
-			Run, %BatchCode%,,Min ;Do It Minimized.
-			sleep, 200 ;THIS IS NEEDED, i think.
+			
+			;Download all the stuff at the same time 
+			if (AllAtOnce = 1) {
+			Run, %BatchCode%,,
+			}
+			
+			;Download one thing at a time
+			if (AllAtOnce = 0) {
+			RunWait, %BatchCode%,,
+			;sleep, 200 ;this probably isnt needed anymore
+			}
 			continue
 		}
 		else
-			gosub, ProcessCompleted
-		break
+          gosub, ProcessCompleted
+			continue
 	}
 	
 }
+;}		
 
 
 
@@ -253,14 +263,16 @@ EnvGet, CheckPathEnvVar, PATH
 If !RegExMatch(CheckPathEnvVar,"youtube-dl") && if (BatchDownloadVar = 0) {
 	msgbox, youtube-dl not found; attempting to run it from %ParentFolder%
 	Run, %Dir%%code%
+	sleep, 200
 	WinWait, youtube-dl.exe
-	gosub, ProcessCompleted	
+	gosub, ProcessCompleted
 }
 
 ;else
 if (BatchDownloadVar = 0)
 {
 	Run, %code%
+	sleep, 200
 	WinWait, youtube-dl.exe
 	gosub, ProcessCompleted
 }
@@ -269,28 +281,35 @@ Return
 
 
 BatchMsg:
-tidle := " "
-SetTimer, ChangeButtonNames, 8 ;timer used to activate label that changes button names.
 GuiControlGet, EnableBatch,,BatchDownloadVar,
+mlem := "   You Are About To Download: " count . " Files At Once! o:  `nDo You Want To Download Them All Simultaneously?`n              (click No if you have Low Bandwidth)"
 if (EnableBatch = 1) {
-	MsgBox,,%tidle%, You Are About To Download: %count% Files At Once! o:
+	msgbox,4,hi,%mlem%
+	IfMsgBox, Yes
+	{ 
+AllAtOnce := 1
+	}
+	IfMsgBox, No
+	{ 
+AllAtOnce := 0
+	}
 }
-else
-	return
 Return
 
 
 ProcessCompleted:
 wintit := "youtube-dl.exe"
 loop, {
-	if !WinExist(wintit) ;loops to wait and see if youtube-dl.exe does not exist
+	if !WinExist(wintit)
 	{
-;Play sound when youtube-dl closes.
-SoundPlay, %A_WinDir%\Media\ding.wav
-SoundPlay *-1  ; Simple beep. If the sound card is not available, the sound is generated using the speaker.
-sleep, 500
-Reload ;w;
-     }
+		;Play sound and reload script.
+		SoundPlay, %A_WinDir%\Media\ding.wav
+		SoundPlay *-1  ; Simple beep. If the sound card is not available, the sound is generated using the speaker.
+		sleep, 500
+		Reload ;W;
+	}
+	else
+		continue
 }
 Return
 
@@ -298,10 +317,7 @@ Return
 ChangeButtonNames: 
 If !WinExist("ayylmao")
 {
-	if !WinExist(tidle)
-	{
-		return ;Keep waiting, if window don't exist.
-	}	
+	return ;Keep waiting, if window don't exist.
 }		
 
 ;Change the button names of specific msgboxs, if they exist.
@@ -309,10 +325,6 @@ if WinExist("ayylmao")
 {
 	buttonName := "&Audio"
 	buttonName2 := "&Video"
-}
-if WinExist(tidle)
-{
-	buttonName := "&k"
 }
 
 SetTimer, ChangeButtonNames, Off 
