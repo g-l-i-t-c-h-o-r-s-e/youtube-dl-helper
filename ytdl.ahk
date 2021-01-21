@@ -229,7 +229,7 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" > big.meme && echo aids ;quit destroying mah strink bab >:c
+Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" > big.meme && echo wao ;quit destroying mah strink bab >:c
 
 ;Batch Download >:3
 if (BatchDownloadVar = 1) 
