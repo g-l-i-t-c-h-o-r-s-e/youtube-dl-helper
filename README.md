@@ -26,6 +26,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 <br/>
 # Features:
 • Easy to use<br/>
+• Customizable default directory
 • Optional Playlist download checkbox<br/>
 • Has Option to Extract Audio or Force MP4 output<br/>
 • Automatically downloads Video and Audio at highest quality<br>
@@ -33,7 +34,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 • Batch/Multiple URL input to download hundreds of videos or playlists at once lmfao<br/>
 • Prompts for output directory; otherwise you can quickly press Enter key to use default<br/>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
-
+• Optionally Automatically copy output file destination to clipboard for quick pasting in applications<br/>
 
 # Tips:
 •You would only need to use the `U` update HotKey in the case that the gui/menu _was already open_ and you wanted to use a different URL or you updated the batch input file.<br/>
