@@ -1,4 +1,4 @@
-; Version 1.07
+; Version 2.00
 ; TODO: auto run at boot
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance,Force ;Self Explenatory
@@ -7,11 +7,14 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ./Environment/Environment.ahk ; Needed to Backup our shit and add the executables to your PATH variable.
 SetTitleMatchMode, 2
+DetectHiddenText, On
+EnvGet, UserPath, USERPROFILE
+IniRead, DestinationToClipboard, settings.ini, CopyDestinationToClipboard, On
+IniRead, DefaultDirectory, settings.ini, DefaultDirectoryVar, Folder
 
 
 ;Default Variables Do Not Touch >:c
 backup = *.reg ; The backup .reg files of your System and User Environment Variables. Delete the two .reg files to trigger the install again. ( Developers Only >:c)
-EnvGet, UserPath, USERPROFILE
 ffmPath = %A_ProgramFiles%\ffmpeg
 ytdlPath = %A_ProgramFiles%\youtube-dl
 musicPath = %UserPath%\Music
@@ -29,7 +32,10 @@ DisableForceMP4 = 0
 youtubedldownload = https://yt-dl.org/latest/youtube-dl.exe
 ffmpegdownload = https://web.archive.org/web/20200914210729if_/https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-20200826-8f2c1f2-win64-static.zip ;ffplay and ffprobe are also included :3
 
-
+;convert string to actual userpath
+if RegExMatch(DefaultDirectory,"%UserPath%") {
+	DefaultDirectory := StrReplace(DefaultDirectory,"%UserPath%", UserPath) 
+}
 
 ;if Environment Variables are not backed up; do it once.
 if !FileExist(backup) {
@@ -79,13 +85,13 @@ leClip := clipboard
 BatchDownloadVar := 0
 sleep, 10
 Titl := "                     Enter Your Destination Path Below Or Press A HotKey:"
-Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DownloadDir%
+;Pandela And Siabus Were Here ;3 /)
+Gui, Add, Edit, xCenter yCenter w425 h20 +Center vDestinationVar, %DefaultDirectory%
 Gui, Add, Button, x2 y22 w420 h20 +Center vDoEt gDoItNao, -=-=-=-=-=-=-=-=-=-Assign File Destination-=-=-=-=-=-=-=-=-=-=-
 Gui, Add, Checkbox, x4 y46 w140 h20 +Center vPlaylistVar, Download Entire Playlist?
 Gui, Add, Checkbox, x290 y46 w130 h20 +Right vForceMP4, Force MP4 Download?
 Gui, Add, Checkbox, x146 y46 w140 h20 +Right vBatchDownloadVar gBatchMsg, Enable Batch Download?
 gui, -sysmenu
-;Pandela And Siabus Were Here ;3 /)
 Gui, Show, xCenter yCenter h66 w425, %Titl% 
 sleep, 20
 guicontrol,focus,DestinationVar
@@ -96,6 +102,7 @@ ArrayListIndex := 0
 loop, read, batch.txt
 {
 	count += 1
+	newcount := (count + 1)
 	ArrayList%A_Index% := A_LoopReadLine
 	ArrayList0 := A_Index + 1
 }
@@ -222,9 +229,9 @@ if (ForceMP4 = 1) && (DisableForceMP4 = 0) { ;Make sure DisableMP4 var is 0 to p
 
 
 Dir := A_WorkingDir . "\"
-Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" ;quit destroying mah strink bab >:c
+Code = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% "%leClip%" > big.meme && echo aids ;quit destroying mah strink bab >:c
 
-;Batch Download
+;Batch Download >:3
 if (BatchDownloadVar = 1) 
 {
 	Loop,%ArrayList0%
@@ -232,16 +239,24 @@ if (BatchDownloadVar = 1)
 		
 		inputURL := ArrayList%A_Index%
 		BatchCode = youtube-dl.exe  %playlist% --output %DestinationVar%/`%(title)s.`%(ext)s --restrict-filenames %format% %inputURL%	
-		newcount := (count + 1)
 		
 		if (A_Index < newcount) { 
-			Run, %BatchCode%,,Min ;Do It Minimized.
-			sleep, 200 ;THIS IS NEEDED, i think.
+			
+			;Download all the stuff at the same time 
+			if (AllAtOnce = 1) {
+			Run, %BatchCode%,,Min
+			}
+			
+			;Download one thing at a time
+			if (AllAtOnce = 0) {
+			RunWait, %BatchCode%,,Min
+			;sleep, 200 ;this probably isnt needed anymore
+			}
 			continue
 		}
 		else
-			gosub, ProcessCompleted
-		continue
+          gosub, ProcessCompleted
+			continue
 	}
 	
 }
@@ -253,18 +268,19 @@ if (BatchDownloadVar = 1)
 EnvGet, CheckPathEnvVar, PATH
 If !RegExMatch(CheckPathEnvVar,"youtube-dl") && if (BatchDownloadVar = 0) {
 	msgbox, youtube-dl not found; attempting to run it from %ParentFolder%
-	Run, %Dir%%code%
+	Run, cmd.exe /k %Dir%%code%,,,PID 
+	sleep, 200
 	WinWait, youtube-dl.exe
-	gosub, ProcessCompleted	
-	;Reload ;W;
+	gosub, ProcessCompleted
 }
+
 ;else
 if (BatchDownloadVar = 0)
 {
-	Run, %code%
+	Run, cmd.exe /k %code%,,,PID 
+	sleep, 200
 	WinWait, youtube-dl.exe
 	gosub, ProcessCompleted
-	;Reload ;W;
 }
 Return
 
@@ -272,26 +288,86 @@ Return
 
 BatchMsg:
 GuiControlGet, EnableBatch,,BatchDownloadVar,
+mlem := "   You Are About To Download: " count . " Files At Once! o:  `nDo You Want To Download Them All Simultaneously?`n              (click No if you have Low Bandwidth)"
 if (EnableBatch = 1) {
-	msgbox, You Are About To Download: %count% Files At Once! o:
+	msgbox,4,hi,%mlem%
+	IfMsgBox, Yes
+	{ 
+		AllAtOnce := 1
+		if (count > 69) { ;lol 69, nice
+			msgbox,,yo, Just so you know, this is going to open up %count% command line windows at the same time; as well as download content at the fullest quality from each.`nPlease consider the other option "No" in the previous window.
+		}
+	}
+	IfMsgBox, No
+	{ 
+		AllAtOnce := 0
+	}
 }
-else
-	return
 Return
 
 
 ProcessCompleted:
+sleep, 20
 wintit := "youtube-dl.exe"
 loop, {
 	if !WinExist(wintit)
 	{
-
-SoundPlay, %A_WinDir%\Media\ding.wav
-SoundPlay *-1  ; Simple beep. If the sound card is not available, the sound is generated using the speaker.
-sleep, 500
-Reload ;w;
-     }
+		gosub, ToClipboard
+		WinClose ahk_pid %PID% ; close cmd window
+		
+		;Play sound and reload script.
+		SoundPlay, %A_WinDir%\Media\ding.wav
+		SoundPlay *-1  ; Simple beep. If the sound card is not available, the sound is generated using the speaker.
+		sleep, 500
+		
+		if (CopyToClipboard = 1)
+			gosub, ToClipboard
+		
+		Reload ;W;
+	}
+	else
+		continue
 }
+Return
+
+ToClipboard:
+o3o := chr(0x22)
+FileRead,checkFormat,big.meme
+if instr(checkformat,"[ffmpeg]") {
+	
+	Cut1 := SubStr(checkFormat, InStr(checkFormat, "[ffmpeg]") + 30) ;cut string
+	sleep, 20
+	Cut2 := SubStr(Cut1, 1, InStr(Cut1, "Deleting ") - 1) ;cut string more
+	Cut2 := SubStr(Cut2, 1, InStr(Cut2, "[ffmpeg] Post-process ") - 1) ;cut string more
+	Cut2 := StrReplace(Cut2,"in ","") ;remove this fucking string fuck you
+	Cut2 := StrReplace(Cut2, "`n", "") ;remove linebreak
+	Cut2 := StrReplace(Cut2, o3o, "") ;remove double quotes
+	outputFile4Clipboard := Cut2
+	FileDelete, big.meme
+	;msgbox % outputFile4Clipboard
+	
+	if (DestinationToClipboard = "True") {
+		clipboard := outputFile4Clipboard ;update clipboard with filepath!
+		
+	}
+}
+else ;yea i dont know regex :^)
+{
+	Cut1 := SubStr(checkFormat, InStr(checkFormat, "[download] Destination") + 24) ;cut string
+	sleep, 20
+	Cut2 := SubStr(Cut1, 1, InStr(Cut1, "[download]") - 1) ;cut string more
+	Cut2 := StrReplace(Cut2, "`n", "") ;remove linebreak
+	Cut2 := StrReplace(Cut2, o3o, "")	;remove double quotes
+	outputFile4Clipboard := Cut2
+	FileDelete, big.meme
+	;msgbox % outputFile4Clipboard
+	
+	if (DestinationToClipboard = "True") {
+		clipboard := outputFile4Clipboard ;update clipboard with filepath!
+		
+	}
+}
+;yea its messy but it works fuck you
 Return
 
 
