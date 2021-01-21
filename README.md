@@ -13,7 +13,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 2.	Press at the same time: `Ctrl+Shift+C`<br/>
 3. Press `Enter` or `A` or `V`
 
-**Detination HotKeys (when menu is active):**<br/>
+**Destination HotKeys (when menu is active):**<br/>
 `D:` Downloads Folder<br/>
 `R:` Root/Parent Folder Script is Within<br/>
 `P:` Custom Folder (WIP)<br/>
