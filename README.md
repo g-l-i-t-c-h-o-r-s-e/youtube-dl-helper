@@ -32,7 +32,7 @@ __**2. Allow the script to add ffmpeg and youtube-dl to your PATH Environment Va
 • Prompts for output directory; otherwise you can quickly press Enter key to use default<br/>
 • Custom output folder; just enter the name of the folder you want it all in and it'll make for you<br/>
 • The option to bulk download hundreds of videos simultaneously, or one at a time.<br/>
-• Notification when downloads have finished processing.
+• Audio notification when downloads have finished processing.
 
 
 # Tips:
